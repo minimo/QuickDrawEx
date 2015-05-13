@@ -1,6 +1,6 @@
 /*
  *  LoadingScene.js
- *  2014/12/09
+ *  2015/03/10
  *  @auther minimo  
  *  This Program is MIT license.
  *
@@ -11,17 +11,6 @@ tm.define("tmapp.LoadingScene", {
 
     init: function(param) {
         this.superInit();
-
-        var param = {
-            assets: assets,
-            width: SC_W,
-            height: SC_H,
-            bgColor: 'rgba(50, 110, 50, 1)',
-            nextScene: function() {
-                this._onLoadAssets();
-                return tmapp.TitleScene();
-            }.bind(this),
-        };
 
         this.fromJSON({
             children: {
@@ -56,8 +45,8 @@ tm.define("tmapp.LoadingScene", {
                     init: [{
                         width: SC_W*0.4,
                         height: 20,
-                        color: "red",
-                        bgColor: "rgba(20, 50, 20, 1)",
+                        color: "blue",
+                        bgColor: "rgba(30, 30, 30, 1)",
                         borderColor: "transparent",
                         borderWidth: 0,
                     }],
@@ -123,11 +112,6 @@ tm.define("tmapp.LoadingScene", {
 
         this.stage.label.tweener.wait(11000).fadeIn(10);
 
-        var that = this;
-        this.loadingAsset = tm.display.Label("", 30)
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.6);
-
         // bar
         var bar = this.stage.bar;
         bar.animationFlag = false;
@@ -154,9 +138,6 @@ tm.define("tmapp.LoadingScene", {
                     // update bar
                     bar.value = e.progress*100;
 
-                    //LoadingAssetName
-                    if (DEBUG) that.loadingAsset.text = e.key;
-
                     // dispatch event
                     var event = tm.event.Event("progress");
                     event.progress = e.progress;
@@ -166,7 +147,5 @@ tm.define("tmapp.LoadingScene", {
                 loader.load(param.assets);
             }
         }.bind(this));
-    },
-    _onLoadAssets: function() {
     },
 });

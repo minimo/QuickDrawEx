@@ -15,31 +15,13 @@ tm.define("tmapp.CanvasApp", {
 
     version: "0.0.1",
 
-    //初回起動フラグ
-    firstGame: false,
-    firstNormalGameOver: true,
-    telopCount: 1,
-
     //ＢＧＭ＆効果音
     bgm: null,
     bgmIsPlay: false,
     sounds: null,
 
-    //スコア保存
-    lastScore: [],
-    highScore: [],
-
-    //実績保存
-    achievement: null,
-
     //バックグラウンドカラー
     bgColor: 'rgba(0, 0, 0, 1)',
-
-    //フラットボタン使用フラグ
-    buttonFlat: true,
-
-    //言語設定
-    language: "JAPANESE",
 
     init: function(id) {
         this.superInit(id);
@@ -51,7 +33,7 @@ tm.define("tmapp.CanvasApp", {
         tmapp.core = this;
 
         //サウンドセット
-        this.sounds = tmapp.SoundSet(MEDIA_DEFAULT);
+        this.sounds = tm.Extension.SoundSet();
 
         //設定情報の読み込み
         this.loadConfig();
@@ -71,8 +53,6 @@ tm.define("tmapp.CanvasApp", {
     },
 
     _onLoadAssets: function() {
-        //スプライトシート作成
-        tmapp.createSpriteSheet();
 /*
         appMain.sounds.add("titleBGM");
 */

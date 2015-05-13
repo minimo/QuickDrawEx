@@ -31,8 +31,6 @@ tm.define("tmapp.TitleScene", {
         this.mask.tweener.clear().fadeOut(300);
         
         this.time = 0;
-
-        if (!appMain.firstGame) appMain.playBGM("titleBGM");
     },
 
     onresume: function() {

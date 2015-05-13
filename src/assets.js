@@ -5,9 +5,10 @@
  *  This Program is MIT license.
  */
 
-var assets = {
+tmapp.assets = [];
+
+tmapp.assets["main"] = {
     //Font
-    "Yasashisa":    "font/07YasashisaAntique.ttf",
-    "CasinoRegular":"font/CasinoRegular.ttf",
-    "UbuntuMono":   "font/UbuntuMono-Bold.ttf",
+    "UbuntuMono":       "font/UbuntuMono-Bold.ttf",
+    "Orbitron-Regular": "font/Orbitron-Regular.ttf",
 }
