@@ -5,6 +5,9 @@
  *  This Program is MIT license.
  */
 
+//AdMob使用フラグ
+USE_ADMOB = true;
+
 //AdMob使用可能フラグ
 ENABLE_ADMOB = false;
 DEBUG_ADMOB = false;

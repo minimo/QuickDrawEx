@@ -27,7 +27,7 @@ tm.define("tm.extension.SoundSet", {
         if (name === undefined) return null;
         url = url || null;
 
-        var e = tm.Extension.SoundElement(name);
+        var e = tm.extension.SoundElement(name);
         if (!e.media) return false;
         this.elements.push(e);
         return true;
@@ -117,7 +117,7 @@ tm.define("tm.extension.SoundSet", {
 });
 
 //SoundElement Basic
-tm.define("tm.Extension.SoundElement", {
+tm.define("tm.extension.SoundElement", {
 
     type: 0,
     name: null,
