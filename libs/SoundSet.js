@@ -23,11 +23,18 @@ tm.define("tm.extension.SoundSet", {
         this.elements = [];
     },
 
+    readAsset: function() {
+        for (var key in tm.asset.Manager.assets) {
+            var obj = tm.asset.Manager.get(key);
+            if (obj._className == "sound") this.add(key);
+        }
+    },
+
     add: function(name, url) {
         if (name === undefined) return null;
         url = url || null;
 
-        var e = tm.extension.SoundElement(name);
+        var e = tm.Extension.SoundElement(name);
         if (!e.media) return false;
         this.elements.push(e);
         return true;
@@ -117,7 +124,7 @@ tm.define("tm.extension.SoundSet", {
 });
 
 //SoundElement Basic
-tm.define("tm.extension.SoundElement", {
+tm.define("tm.Extension.SoundElement", {
 
     type: 0,
     name: null,
