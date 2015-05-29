@@ -8,7 +8,9 @@
 assets = [];
 
 assets["main"] = {
+    //Sprite
+    "hiyoko":   "assets/hiyoco_nomal_full.png",
     //Font
-    "UbuntuMono":       "font/UbuntuMono-Bold.ttf",
-    "Orbitron": "font/Orbitron-Regular.ttf",
+    "UbuntuMono":   "font/UbuntuMono-Bold.ttf",
+    "Orbitron":     "font/Orbitron-Regular.ttf",
 }
