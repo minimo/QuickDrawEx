@@ -26,7 +26,7 @@ tm.define("tm.extension.SoundSet", {
     readAsset: function() {
         for (var key in tm.asset.Manager.assets) {
             var obj = tm.asset.Manager.get(key);
-            if (obj._className == "sound") this.add(key);
+            if (obj instanceof tm.sound.WebAudio) this.add(key);
         }
     },
 
@@ -126,7 +126,6 @@ tm.define("tm.extension.SoundSet", {
 //SoundElement Basic
 tm.define("tm.Extension.SoundElement", {
 
-    type: 0,
     name: null,
     url: null,
     media: null,
@@ -134,8 +133,7 @@ tm.define("tm.Extension.SoundElement", {
     status: null,
     message: null,
 
-    init: function(type, name) {
-        this.type = type;
+    init: function(name) {
         this.name = name;
         this.media = tm.asset.AssetManager.get(name);
         if (!this.media) {
