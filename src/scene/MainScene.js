@@ -25,11 +25,15 @@ tm.define("tmapp.MainScene", {
     //経過時間
     time: 1,
 
+    //残り時間(ms)
+    leftTime: 11000,
+
     //遷移情報
     exitGame: false,
 
     //ラベル用パラメータ
     labelParamBasic: {fontFamily: "Yasashisa", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
+    timeLabelParam: {fontFamily: "Digital", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
 
     init: function(mode, retry) {
         this.superInit();
@@ -48,27 +52,25 @@ tm.define("tmapp.MainScene", {
         this.mainLayer = tm.app.Object2D().addChildTo(this);
         this.upperLayer = tm.app.Object2D().addChildTo(this);
 
-        //スコア表示
+        //タイム表示
         var that = this;
-        this.scoreLabel = tm.display.OutlineLabel("SCORE ", 40)
+        this.scoreLabel = tm.display.OutlineLabel("00.00", 100)
             .addChildTo(this)
-            .setParam(this.labelParamBasic)
-            .setPosition(8, 32);
+            .setParam(this.timeLabelParam)
+            .setPosition(SC_W/2, SC_H*0.2);
         this.scoreLabel.score = 0;
         this.scoreLabel.update = function() {
-            this.text = "SCORE "+this.score;
-            if (this.score < that.score) {
-                var s = ~~((that.score-this.score)/11);
-                if (s < 3) s=3;
-                this.score += s;
-                if (this.score > that.score)this.score = that.score;
-            }
+            this.text = ""+(that.leftTime/1000).ceil(2);
+            if (that.leftTime < 10000)this.text = "0"+this.text;
+            if (that.leftTime % 100 == 0)this.text = this.text + "0";
+            if (that.leftTime % 1000 == 0)this.text = this.text + ".00";
+            if (that.leftTime == 0) this.text = "00.00";
         }
 
         //ポーズボタン
         this.pause = tm.extension.Button(200, 60, "PAUSE", {flat: true, fontSize:40})
             .addChildTo(this)
-            .setPosition(SC_W*0.84, 90)
+            .setPosition(SC_W*0.84, 30)
             .addEventListener("pushed", function() {
                 appMain.pushScene(tmapp.PauseScene(this));
             }.bind(this));
@@ -80,15 +82,18 @@ tm.define("tmapp.MainScene", {
         this.mask.tweener.clear().fadeOut(200);
     },
     
-    update: function() {
+    update: function(app) {
+        this.leftTime -= app.deltaTime;
+        if (this.leftTime < 0) this.leftTime = 0;
     },
 
     //着弾エフェクト
     addImpact: function(x, y) {
-        tmapp.playSE("bang");
+        appMain.playSE("bang");
         var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Impact)
             .addChildTo(this)
             .setPosition(x, y)
+            .setScale(2)
             .gotoAndPlay("impact");
         p.onanimationend = function() {
             this.remove();
