@@ -54,7 +54,7 @@ tm.define("tmapp.CanvasApp", {
 
     _onLoadAssets: function() {
 
-        appMain.sounds.readAsset();
+        this.sounds.readAsset();
         tmapp.createSpriteSheet();
 
         //Admob setting

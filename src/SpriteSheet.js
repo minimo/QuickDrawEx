@@ -11,22 +11,68 @@ tmapp.SpriteSheet = {};
 //スプライトシート作成
 tmapp.createSpriteSheet = function() {
 
-    tmapp.SpriteSheet.Hiyoko = tm.asset.SpriteSheet({
-        image: "hiyoko",
+    //着弾エフェクト用
+    tmapp.SpriteSheet.Impact = tm.asset.SpriteSheet({
+        image: "impact",
+        frame: {
+            width: 64,
+            height: 64,
+            count: 8,
+        },
+        animations: {
+            "impact": {
+                frames:[0,1,2,3,4,5,6,7],
+                frequency: 1,
+            },
+        },
+    });
+
+    //ターゲット用
+    tmapp.SpriteSheet.Target1 = tm.asset.SpriteSheet({
+        image: "target1",
         frame: {
             width: 32,
             height: 32,
-            count: 3,
-
-            trimX: 96,
-            trimY: 32,
-            trimW: 96,
-            trimH: 32,
+            count: 18,
         },
         animations: {
-            "test": {
-                frames:[0,1,2],
-                next: "test",
+            "stop": {
+                frames:[0],
+                next: "stop",
+                frequency: 1,
+            },
+            "startup": {
+                frames:[1,2,3,1,2,3,1,2,3,1,2,3,1,2,3],
+                next: "stop",
+                frequency: 5,
+            },
+            "miss": {
+                frames:[4,5],
+                frequency: 23,
+            },
+            "move": {
+                frames:[1,2,3],
+                next: "move",
+                frequency: 5,
+            },
+            "moveL": {
+                frames:[12,13,14,13],
+                next: "moveL",
+                frequency: 5,
+            },
+            "moveR": {
+                frames:[15,16,17,16],
+                next: "moveR",
+                frequency: 5,
+            },
+            "moveD": {
+                frames:[6,7,8,7],
+                next: "moveD",
+                frequency: 5,
+            },
+            "moveU": {
+                frames:[9,10,11,10],
+                next: "moveU",
                 frequency: 5,
             },
         },

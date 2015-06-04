@@ -73,12 +73,6 @@ tm.define("tmapp.MainScene", {
                 appMain.pushScene(tmapp.PauseScene(this));
             }.bind(this));
 
-        this.sprite = tm.display.AnimationSprite(tmapp.SpriteSheet.Hiyoko)
-            .addChildTo(this)
-            .setPosition(SC_W/2, SC_H/2)
-            .setScale(4)
-            .gotoAndPlay("test");
-
         //目隠し
         this.mask = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: "rgba(0, 0, 0, 1.0)", strokeStyle: "rgba(0, 0, 0, 1.0)"})
             .addChildTo(this)
@@ -89,11 +83,24 @@ tm.define("tmapp.MainScene", {
     update: function() {
     },
 
+    //着弾エフェクト
+    addImpact: function(x, y) {
+        tmapp.playSE("bang");
+        var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Impact)
+            .addChildTo(this)
+            .setPosition(x, y)
+            .gotoAndPlay("impact");
+        p.onanimationend = function() {
+            this.remove();
+        }
+    },
+
     //ゲームオーバー
     gameover: function() {
     },
 
     ontouchesstart: function(e) {
+        this.addImpact(e.pointing.x, e.pointing.y);
     },
 
     ontouchesmove: function(e) {

@@ -9,7 +9,10 @@ assets = [];
 
 assets["main"] = {
     //Sprite
-    "hiyoko":   "assets/hiyoco_nomal_full.png",
+    "target1":  "assets/hiyoco_waru_full.png",
+    "target2":  "assets/hiyoco_mecha_full.png",
+    "target3":  "assets/hiyoco_normal_full.png",
+    "impact":   "assets/bang.png",
 
     //Sound
     "bang":     "assets/se_bang.mp3",
