@@ -25,8 +25,8 @@ tm.define("tmapp.MainScene", {
     //経過時間
     time: 1,
 
-    //残り時間(ms)
-    leftTime: 11000,
+    //ゲーム内時計(ms)
+    gameTime: 0,
 
     //遷移情報
     exitGame: false,
@@ -60,11 +60,11 @@ tm.define("tmapp.MainScene", {
             .setPosition(SC_W/2, SC_H*0.2);
         this.scoreLabel.score = 0;
         this.scoreLabel.update = function() {
-            this.text = ""+(that.leftTime/1000).ceil(2);
-            if (that.leftTime < 10000)this.text = "0"+this.text;
-            if (that.leftTime % 100 == 0)this.text = this.text + "0";
-            if (that.leftTime % 1000 == 0)this.text = this.text + ".00";
-            if (that.leftTime == 0) this.text = "00.00";
+            this.text = ""+(that.gameTime/1000).ceil(2);
+            if (that.gameTime < 10000)this.text = "0"+this.text;
+            if (that.gameTime % 100 == 0)this.text = this.text + "0";
+            if (that.gameTime % 1000 == 0)this.text = this.text + ".00";
+            if (that.gameTime == 0) this.text = "00.00";
         }
 
         //ポーズボタン
@@ -83,8 +83,9 @@ tm.define("tmapp.MainScene", {
     },
     
     update: function(app) {
-        this.leftTime -= app.deltaTime;
-        if (this.leftTime < 0) this.leftTime = 0;
+        this.gameTime += app.deltaTime;
+        if (this.gameTime < 0) this.gameTime = 0;
+        if (this.gameTime > 100000) this.gameTime = 100000;
     },
 
     //着弾エフェクト
