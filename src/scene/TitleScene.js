@@ -24,10 +24,16 @@ tm.define("tmapp.TitleScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
 
-        tm.display.OutlineLabel("SAMPLE", 80)
+        this.t1 = tm.display.OutlineLabel("QUICK", 80)
             .addChildTo(this)
             .setParam(this.labelParam)
-            .setPosition(SC_W*0.5, SC_H*0.3);
+            .setPosition(SC_W*1.5, SC_H*0.3);
+        this.t2 = tm.display.OutlineLabel("DRAW", 80)
+            .addChildTo(this)
+            .setParam(this.labelParam)
+            .setPosition(SC_W*-0.5, SC_H*0.4);
+        this.t1.tweener.clear().move(SC_W*0.3, SC_H*0.3, 500);
+        this.t2.tweener.clear().move(SC_W*0.6, SC_H*0.4, 500);
 
         var lb = tm.display.OutlineLabel("touch start", 50)
             .addChildTo(this)
@@ -56,8 +62,22 @@ tm.define("tmapp.TitleScene", {
         this.time++;
     },
 
+    //着弾エフェクト
+    addImpact: function(x, y) {
+        appMain.playSE("bang");
+        var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Impact)
+            .addChildTo(this)
+            .setPosition(x, y)
+            .setScale(2)
+            .gotoAndPlay("impact");
+        p.onanimationend = function() {
+            this.remove();
+        }
+    },
+
     //タッチorクリック開始処理
     ontouchstart: function(e) {
+        this.addImpact(e.pointing.x, e.pointing.y);
     },
 
     //タッチorクリック移動処理
