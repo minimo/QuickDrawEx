@@ -12,6 +12,8 @@ tm.define("tmapp.TitleScene", {
     //フォントパラメータ
     labelParam: {fontFamily:"Orbitron", align: "center", baseline:"middle", outlineWidth:2, fontWeight:700 },
     scoreParam: {fontFamily:"Orbitron", align: "left", baseline:"middle", outlineWidth:2 },
+    leftParam: {fontFamily:"Orbitron", align: "left", baseline:"middle", outlineWidth:2 },
+    rightParam: {fontFamily:"Orbitron", align: "right", baseline:"middle", outlineWidth:2 },
 
     bgColor: 'rgba(50, 150, 50, 1)',
 
@@ -26,14 +28,14 @@ tm.define("tmapp.TitleScene", {
 
         this.t1 = tm.display.OutlineLabel("QUICK", 80)
             .addChildTo(this)
-            .setParam(this.labelParam)
-            .setPosition(SC_W*1.5, SC_H*0.3);
+            .setParam(this.leftParam)
+            .setPosition(SC_W*2, SC_H*0.3);
         this.t2 = tm.display.OutlineLabel("DRAW", 80)
             .addChildTo(this)
-            .setParam(this.labelParam)
-            .setPosition(SC_W*-0.5, SC_H*0.4);
-        this.t1.tweener.clear().move(SC_W*0.3, SC_H*0.3, 500);
-        this.t2.tweener.clear().move(SC_W*0.6, SC_H*0.4, 500);
+            .setParam(this.rightParam)
+            .setPosition(SC_W*-1.0, SC_H*0.4);
+        this.t1.tweener.clear().move(SC_W*0.2, SC_H*0.3, 500);
+        this.t2.tweener.clear().move(SC_W*0.8, SC_H*0.4, 500);
 
         var lb = tm.display.OutlineLabel("touch start", 50)
             .addChildTo(this)
