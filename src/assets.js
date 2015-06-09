@@ -20,5 +20,5 @@ assets["main"] = {
     //Font
     "UbuntuMono":   "font/UbuntuMono-Bold.ttf",
     "Orbitron":     "font/Orbitron-Regular.ttf",
-    "Digital":      "font/4fun_str.ttf",
+    "Digital":      "font/alarmclock.ttf",
 }
