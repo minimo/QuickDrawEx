@@ -9,6 +9,13 @@
 tm.define("tmapp.Target", {
     superClass: "tm.display.AnimationSprite",
 
+    //設定フラグ
+    isCollision: true,
+    isDead: false,
+
+    //行動パターン番号
+    pattern: 0,
+
     init: function(num) {
         var sp = tmapp.SpriteSheet.Target[num];
         if (!sp) {
@@ -16,11 +23,28 @@ tm.define("tmapp.Target", {
         }
         this.superInit(sp);
 
+        this.setScale(3);
+        this.bx = this.by = 0;
+        this.dir = this.beforeDir = 0;   //0:左 1:右
+        
         this.gotoAndPlay("walk");
     },
 
     update: function() {
-        this.x += 1;
+        this.x += -1;
+        if (this.bx > this.x) {
+            this.dir = 0;
+        } else {
+            this.dir = 1;
+        }
+        if (this.dir !== this.beforeDir) this.scaleX *= -1;
+
+        this.bx = this.x;
+        this.by = this.y;
+        this.beforeDir = this.dir;
+    },
+
+    algorithm: function() {
     },
 
     damage: function() {

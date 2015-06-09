@@ -75,6 +75,9 @@ tm.define("tmapp.MainScene", {
                 appMain.pushScene(tmapp.PauseScene(this));
             }.bind(this));
 
+        //ステージ構築
+        this.setupStage(0);
+
         //目隠し
         this.mask = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: "rgba(0, 0, 0, 1.0)", strokeStyle: "rgba(0, 0, 0, 1.0)"})
             .addChildTo(this)
@@ -86,6 +89,15 @@ tm.define("tmapp.MainScene", {
         this.gameTime += app.deltaTime;
         if (this.gameTime < 0) this.gameTime = 0;
         if (this.gameTime > 100000) this.gameTime = 100000;
+    },
+
+    //ステージ構築
+    setupStage: function(stageNumber) {
+        if (stageNumber == 0) {
+            var sp = tmapp.Target(1)
+                .addChildTo(this)
+                .setPosition(SC_W/2, SC_H/2);
+        }
     },
 
     //着弾エフェクト
