@@ -9,6 +9,10 @@
 tm.define("tmapp.MainScene", {
     superClass: tm.app.Scene,
 
+    //フラグ類
+    gameMode: 0,
+    stage: 0,
+
     //マルチタッチ補助クラス
     touches: null,
     touchID: -1,
@@ -30,10 +34,12 @@ tm.define("tmapp.MainScene", {
 
     //遷移情報
     exitGame: false,
+    retryStart: false,
 
     //ラベル用パラメータ
-    labelParamBasic: {fontFamily: "Yasashisa", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
+    labelParamBasic: {fontFamily: "UbuntuMono", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
     timeLabelParam: {fontFamily: "Digital", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
+    digitalCenterParam: {fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700},
 
     init: function(mode, retry) {
         this.superInit();
@@ -57,7 +63,7 @@ tm.define("tmapp.MainScene", {
         this.scoreLabel = tm.display.OutlineLabel("00.00", 100)
             .addChildTo(this)
             .setParam(this.timeLabelParam)
-            .setPosition(SC_W/2, SC_H*0.2);
+            .setPosition(SC_W*0.4, SC_H*0.2);
         this.scoreLabel.score = 0;
         this.scoreLabel.update = function() {
             this.text = ""+(that.gameTime/1000).ceil(2);
@@ -76,7 +82,9 @@ tm.define("tmapp.MainScene", {
             }.bind(this));
 
         //ステージ構築
-        this.setupStage(0);
+        this.gameMode = mode;
+        this.stageNumber = 1;
+        this.setupStage();
 
         //目隠し
         this.mask = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: "rgba(0, 0, 0, 1.0)", strokeStyle: "rgba(0, 0, 0, 1.0)"})
@@ -92,11 +100,25 @@ tm.define("tmapp.MainScene", {
     },
 
     //ステージ構築
-    setupStage: function(stageNumber) {
-        if (stageNumber == 0) {
-            var sp = tmapp.Target(1)
-                .addChildTo(this)
-                .setPosition(SC_W/2, SC_H/2);
+    setupStage: function() {
+        var that = this;
+        var st = tm.display.OutlineLabel("STAGE "+this.stageNumber, 100)
+            .addChildTo(this)
+            .setParam(this.digitalCenterParam)
+            .setPosition(SC_W*0.5, SC_H*-1.0);
+        st.tweener.clear()
+            .move(SC_W*0.5, SC_H*0.5, 600, "easeOutSine")
+            .call(function() {
+            });
+
+        switch(this.gameMode) {
+            case MODE_NORMAL:
+                if (stageNumber == 1) {
+                    var sp = tmapp.Target(1)
+                        .addChildTo(this)
+                        .setPosition(SC_W/2, SC_H/2);
+                }
+                break;
         }
     },
 
