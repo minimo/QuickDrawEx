@@ -11,19 +11,14 @@ var rand = function(min, max) { return mt.nextInt(min, max); };    //乱数発�
 
 //定数
 //デバッグフラグ
-DEBUG = false;
+var DEBUG = false;
 
 //スクリーンサイズ
-SC_W = 640;
-SC_H = 1136;
+var SC_W = 640;
+var SC_H = 1136;
 
-//Use MEDIA TYPE
-MEDIA_ASSET = 0;    //tmlib Asset
-MEDIA_CORDOVA = 1;  //CordovaMediaPlugin
-MEDIA_LLA = 2;      //LawLatencyAudioPlugin
-
-//デフォルトメディアタイプ
-MEDIA_DEFAULT = MEDIA_ASSET;
+//ゲームモード
+var MODE_NORMAL = 0;
 
 //フレームレート
 fps = 30;
