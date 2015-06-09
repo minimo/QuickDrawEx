@@ -37,44 +37,25 @@ tmapp.createSpriteSheet = function() {
             count: 18,
         },
         animations: {
-            "stop": {
-                frames:[0],
-                next: "stop",
+            "fly": {
+                frames:[1,2,3,2],
+                next: "fly",
+                frequency: 7,
+            },
+            "walk": {
+                frames:[12,13,14,13],
+                next: "walk",
+                frequency: 10,
+            },
+            "damage": {
+                frames:[4],
+                next: "damage",
                 frequency: 1,
             },
-            "startup": {
-                frames:[1,2,3,1,2,3,1,2,3,1,2,3,1,2,3],
-                next: "stop",
-                frequency: 5,
-            },
-            "miss": {
-                frames:[4,5],
-                frequency: 23,
-            },
-            "move": {
-                frames:[1,2,3],
-                next: "move",
-                frequency: 5,
-            },
-            "moveL": {
-                frames:[12,13,14,13],
-                next: "moveL",
-                frequency: 5,
-            },
-            "moveR": {
-                frames:[15,16,17,16],
-                next: "moveR",
-                frequency: 5,
-            },
-            "moveD": {
-                frames:[6,7,8,7],
-                next: "moveD",
-                frequency: 5,
-            },
-            "moveU": {
-                frames:[9,10,11,10],
-                next: "moveU",
-                frequency: 5,
+            "dawn": {
+                frames:[5],
+                next: "dawn",
+                frequency: 1,
             },
         },
     });
@@ -86,44 +67,25 @@ tmapp.createSpriteSheet = function() {
             count: 18,
         },
         animations: {
-            "stop": {
-                frames:[0],
-                next: "stop",
+            "fly": {
+                frames:[1,2,3,2],
+                next: "fly",
+                frequency: 7,
+            },
+            "walk": {
+                frames:[12,13,14,13],
+                next: "walk",
+                frequency: 10,
+            },
+            "damage": {
+                frames:[4],
+                next: "damage",
                 frequency: 1,
             },
-            "startup": {
-                frames:[1,2,3,1,2,3,1,2,3,1,2,3,1,2,3],
-                next: "stop",
-                frequency: 5,
-            },
-            "miss": {
-                frames:[4,5],
-                frequency: 23,
-            },
-            "move": {
-                frames:[1,2,3],
-                next: "move",
-                frequency: 5,
-            },
-            "moveL": {
-                frames:[12,13,14,13],
-                next: "moveL",
-                frequency: 5,
-            },
-            "moveR": {
-                frames:[15,16,17,16],
-                next: "moveR",
-                frequency: 5,
-            },
-            "moveD": {
-                frames:[6,7,8,7],
-                next: "moveD",
-                frequency: 5,
-            },
-            "moveU": {
-                frames:[9,10,11,10],
-                next: "moveU",
-                frequency: 5,
+            "dawn": {
+                frames:[5],
+                next: "dawn",
+                frequency: 1,
             },
         },
     });
@@ -135,44 +97,25 @@ tmapp.createSpriteSheet = function() {
             count: 18,
         },
         animations: {
-            "stop": {
-                frames:[0],
-                next: "stop",
+            "fly": {
+                frames:[1,2,3,2],
+                next: "fly",
+                frequency: 7,
+            },
+            "walk": {
+                frames:[12,13,14,13],
+                next: "walk",
+                frequency: 10,
+            },
+            "damage": {
+                frames:[4],
+                next: "damage",
                 frequency: 1,
             },
-            "startup": {
-                frames:[1,2,3,1,2,3,1,2,3,1,2,3,1,2,3],
-                next: "stop",
-                frequency: 5,
-            },
-            "miss": {
-                frames:[4,5],
-                frequency: 23,
-            },
-            "move": {
-                frames:[1,2,3],
-                next: "move",
-                frequency: 5,
-            },
-            "moveL": {
-                frames:[12,13,14,13],
-                next: "moveL",
-                frequency: 5,
-            },
-            "moveR": {
-                frames:[15,16,17,16],
-                next: "moveR",
-                frequency: 5,
-            },
-            "moveD": {
-                frames:[6,7,8,7],
-                next: "moveD",
-                frequency: 5,
-            },
-            "moveU": {
-                frames:[9,10,11,10],
-                next: "moveU",
-                frequency: 5,
+            "dawn": {
+                frames:[5],
+                next: "dawn",
+                frequency: 1,
             },
         },
     });
