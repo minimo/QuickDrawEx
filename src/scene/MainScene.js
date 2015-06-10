@@ -11,7 +11,7 @@ tm.define("tmapp.MainScene", {
 
     //フラグ類
     gameMode: 0,
-    stage: 0,
+    stageNumber: 0,
 
     //マルチタッチ補助クラス
     touches: null,
@@ -33,6 +33,7 @@ tm.define("tmapp.MainScene", {
     gameTime: 0,
 
     //遷移情報
+    startGame: false,
     exitGame: false,
     retryStart: false,
 
@@ -46,6 +47,10 @@ tm.define("tmapp.MainScene", {
 
         //バックグラウンド
         this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: appMain.bgColor, strokeStyle: appMain.bgColor})
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+
+        this.wall = tm.display.Sprite("wall", SC_W, SC_H)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
 
@@ -80,10 +85,12 @@ tm.define("tmapp.MainScene", {
                 appMain.pushScene(tmapp.PauseScene(this));
             }.bind(this));
 
-        //ステージ構築
+        //ステージ情報
         this.gameMode = mode;
         this.stageNumber = 1;
-        this.setupStage();
+
+        //初期化
+        this.startup();
 
         //目隠し
         this.mask = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: "rgba(0, 0, 0, 1.0)", strokeStyle: "rgba(0, 0, 0, 1.0)"})
@@ -93,26 +100,53 @@ tm.define("tmapp.MainScene", {
     },
     
     update: function(app) {
-        this.gameTime += app.deltaTime;
-        if (this.gameTime < 0) this.gameTime = 0;
-        if (this.gameTime > 100000) this.gameTime = 100000;
+        if (this.startGame) {
+            this.gameTime += app.deltaTime;
+            if (this.gameTime < 0) this.gameTime = 0;
+            if (this.gameTime > 100000) this.gameTime = 100000;
+        }
     },
 
-    //ステージ構築
-    setupStage: function() {
+    //ゲーム開始表示
+    startup: function() {
         var that = this;
-        var st = tm.display.OutlineLabel("STAGE "+this.stageNumber, 100)
+
+        var st = tm.display.Label("STAGE "+this.stageNumber, 100)
             .addChildTo(this)
             .setParam(this.digitalCenterParam)
             .setPosition(SC_W*0.5, SC_H*-1.0);
         st.tweener.clear()
             .move(SC_W*0.5, SC_H*0.5, 600, "easeOutSine")
+            .wait(1000)
             .call(function() {
+                st.fontSize = 200;
+                st.text = "3"
+            })
+            .fadeOut(1000)
+            .call(function() {
+                st.text = "2"
+            })
+            .fadeIn(1).fadeOut(1000)
+            .call(function() {
+                st.text = "1"
+            })
+            .fadeIn(1).fadeOut(1000)
+            .call(function() {
+                that.startGame = true;
+                that.setupStage();
+                st.text = "START"
+            })
+            .fadeIn(1).fadeOut(1000)
+            .call(function() {
+                st.remove();
             });
+    },
 
+    //ステージ構築
+    setupStage: function() {
         switch(this.gameMode) {
-            case MODE_NORMAL:
-                if (stageNumber == 1) {
+            case GAMEMODE_NORMAL:
+                if (this.stageNumber == 1) {
                     var sp = tmapp.Target(1)
                         .addChildTo(this)
                         .setPosition(SC_W/2, SC_H/2);

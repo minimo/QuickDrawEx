@@ -18,7 +18,7 @@ var SC_W = 640;
 var SC_H = 1136;
 
 //ゲームモード
-var MODE_NORMAL = 0;
+var GAMEMODE_NORMAL = 0;
 
 //フレームレート
 fps = 30;
