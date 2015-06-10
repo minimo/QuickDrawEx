@@ -100,11 +100,11 @@ tm.define("tmapp.MainScene", {
     },
     
     update: function(app) {
-        if (this.startGame) {
-            this.gameTime += app.deltaTime;
-            if (this.gameTime < 0) this.gameTime = 0;
-            if (this.gameTime > 100000) this.gameTime = 100000;
-        }
+        if (!this.startGame) return;
+
+        this.gameTime += app.deltaTime;
+        if (this.gameTime < 0) this.gameTime = 0;
+        if (this.gameTime > 100000) this.gameTime = 100000;
     },
 
     //ゲーム開始表示
@@ -148,7 +148,7 @@ tm.define("tmapp.MainScene", {
             case GAMEMODE_NORMAL:
                 if (this.stageNumber == 1) {
                     var sp = tmapp.Target(1)
-                        .addChildTo(this)
+                        .addChildTo(this.mainLayer)
                         .setPosition(SC_W/2, SC_H/2);
                 }
                 break;
@@ -168,12 +168,22 @@ tm.define("tmapp.MainScene", {
         }
     },
 
+    checkCollision: function(x, y) {
+        var list = this.mainLayer.children;
+        list.forEach(function(e, i, a) {
+            if (e.isHitPoint(x, y)) {
+                e.damage(x, y);
+            }
+        });
+    },
+
     //ゲームオーバー
     gameover: function() {
     },
 
     ontouchesstart: function(e) {
         this.addImpact(e.pointing.x, e.pointing.y);
+        this.checkCollision(e.pointing.x, e.pointing.y);
     },
 
     ontouchesmove: function(e) {

@@ -13,6 +13,9 @@ tm.define("tmapp.Target", {
     isCollision: true,
     isDead: false,
 
+    //耐久力
+    def: 1,
+
     //行動パターン番号
     pattern: 0,
 
@@ -47,29 +50,30 @@ tm.define("tmapp.Target", {
     algorithm: function() {
     },
 
-    damage: function() {
+    damage: function(x, y) {
+        if (this.isDead)return;
+        this.def--;
+        if (this.def < 1) {
+            this.dead(x, y);
+            return true;
+        }
         return false;
     },
 
-    dead: function() {
+    dead: function(x, y) {
         this.isCollision = false;
         this.isDead = true;
-        this.remove();
 
-        var sp = tm.display.Sprite(this.ss.image, 32, 32)
-            .addChildTo(this.parentScene)
-            .setPosition(this.x, this.y)
-            .setScale(2)
-            .setFrameIndex(4);
-        sp.vy = -10;
-        sp.update = function() {
-            this.rotation+=10;
-            this.x += 1;
+        this.gotoAndPlay("damage");
+        this.vx = (this.x - x)/2;
+        this.vy = -20;
+        this.rot = this.vx;
+        this.update = function() {
+            this.rotation += this.rot;
+            this.x += this.vx;
             this.y += this.vy;
-            this.vy += 0.98*0.5;
-            if (this.y > SC_H+64) {
-                this.remove();
-            }
+            this.vy -= 0.98*4;
+            if (this.y > SC_H+64) this.remove();
         };
     },
 });
