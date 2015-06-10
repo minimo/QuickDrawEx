@@ -62,7 +62,7 @@ tm.define("tmapp.MainScene", {
         this.timeLabel = tm.display.OutlineLabel("00.00", 100)
             .addChildTo(this)
             .setParam({fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700})
-            .setPosition(SC_W*0.4, SC_H*0.2);
+            .setPosition(SC_W*0.5, SC_H*0.1);
         this.timeLabel.score = 0;
         this.timeLabel.update = function() {
             var time = (that.gameTime/10).floor();
