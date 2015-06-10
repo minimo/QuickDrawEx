@@ -54,9 +54,6 @@ tm.define("tmapp.MainScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
 
-        //マルチタッチ初期化
-        this.touches = tm.input.TouchesEx(this);
-
         //レイヤー準備
         this.lowerLayer = tm.app.Object2D().addChildTo(this);
         this.mainLayer = tm.app.Object2D().addChildTo(this);
@@ -181,15 +178,17 @@ tm.define("tmapp.MainScene", {
     gameover: function() {
     },
 
-    ontouchesstart: function(e) {
-        this.addImpact(e.pointing.x, e.pointing.y);
-        this.checkCollision(e.pointing.x, e.pointing.y);
+    ontouchstart: function(e) {
+        if (this.startGame) {
+            this.addImpact(e.pointing.x, e.pointing.y);
+            this.checkCollision(e.pointing.x, e.pointing.y);
+        }
     },
 
-    ontouchesmove: function(e) {
+    ontouchmove: function(e) {
     },
 
-    ontouchesend: function(e) {
+    ontouchend: function(e) {
     },
 });
 
