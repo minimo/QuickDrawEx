@@ -9,6 +9,9 @@ assets = [];
 
 assets["main"] = {
     //Sprite
+    "box":      "assets/box.png",
+    "block":    "assets/block.png",
+    "wall":     "assets/wall.png",
     "target1":  "assets/hiyoco_waru_full.png",
     "target2":  "assets/hiyoco_mecha_full.png",
     "target3":  "assets/hiyoco_normal_full.png",
