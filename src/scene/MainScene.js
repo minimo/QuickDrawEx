@@ -13,9 +13,6 @@ tm.define("tmapp.MainScene", {
     gameMode: 0,
     stageNumber: 0,
 
-    //マルチタッチ補助クラス
-    touches: null,
-    touchID: -1,
 
     //タッチ情報
     startX: 0,
