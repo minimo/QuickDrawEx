@@ -66,13 +66,13 @@ tm.define("tmapp.Target", {
 
         this.gotoAndPlay("damage");
         this.vx = (this.x - x)/2;
-        this.vy = -20;
+        this.vy = -30;
         this.rot = this.vx;
         this.update = function() {
             this.rotation += this.rot;
             this.x += this.vx;
             this.y += this.vy;
-            this.vy -= 0.98*4;
+            this.vy += 0.98*4;
             if (this.y > SC_H+64) this.remove();
         };
     },

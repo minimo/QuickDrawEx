@@ -11,8 +11,20 @@ tm.define("tmapp.MainScene", {
 
     //フラグ類
     gameMode: 0,
-    stageNumber: 0,
+    numStage: 0,
 
+    //遷移情報
+    startGame: false,
+    exitGame: false,
+    retryStart: false,
+    clearStage: false,
+    stopTimer: false,
+
+    //残弾数
+    leftBullet: 15,
+
+    //ヒット数
+    numHit: 0,
 
     //タッチ情報
     startX: 0,
@@ -28,11 +40,6 @@ tm.define("tmapp.MainScene", {
 
     //ゲーム内時計(ms)
     gameTime: 0,
-
-    //遷移情報
-    startGame: false,
-    exitGame: false,
-    retryStart: false,
 
     //ラベル用パラメータ
     labelParamBasic: {fontFamily: "UbuntuMono", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
@@ -81,7 +88,7 @@ tm.define("tmapp.MainScene", {
 
         //ステージ情報
         this.gameMode = mode;
-        this.stageNumber = 1;
+        this.numStage = 1;
 
         //初期化
         this.startup();
@@ -96,16 +103,45 @@ tm.define("tmapp.MainScene", {
     update: function(app) {
         if (!this.startGame) return;
 
-        this.gameTime += app.deltaTime;
-        if (this.gameTime < 0) this.gameTime = 0;
-        if (this.gameTime > 100000) this.gameTime = 100000;
+        if (!this.stopTimer) {
+            this.gameTime += app.deltaTime;
+            if (this.gameTime < 0) this.gameTime = 0;
+            if (this.gameTime > 100000) this.gameTime = 100000;
+        }
+
+        //ステージクリア条件チェック
+        if (this.checkStageClear()) {
+            if (!this.clearStage) {
+                var that = this;
+                this.stopTimer = true;
+                this.clearStage = true;
+                var st = tm.display.Label("STAGE CLEAR", 100)
+                    .addChildTo(this)
+                    .setParam(this.digitalCenterParam)
+                    .setPosition(SC_W*0.5, SC_H*0.5)
+                    .setAlpha(0);
+                st.tweener.clear()
+                    .wait(3000)
+                    .fadeIn(10)
+                    .wait(2000)
+                    .fadeOut(10)
+                    .call(function() {
+                        that.numStage++;
+                        that.startup();
+                        st.remove();
+                    });
+            }
+        }
     },
 
     //ゲーム開始表示
     startup: function() {
         var that = this;
 
-        var st = tm.display.Label("STAGE "+this.stageNumber, 100)
+        this.clearStage = false;
+        this.numHit = 0;
+ 
+        var st = tm.display.Label("STAGE "+this.numStage, 100)
             .addChildTo(this)
             .setParam(this.digitalCenterParam)
             .setPosition(SC_W*0.5, SC_H*-1.0);
@@ -114,19 +150,20 @@ tm.define("tmapp.MainScene", {
             .wait(1000)
             .call(function() {
                 st.fontSize = 200;
-                st.text = "3"
+                st.text = "3";
             })
             .fadeOut(1000)
             .call(function() {
-                st.text = "2"
+                st.text = "2";
             })
             .fadeIn(1).fadeOut(1000)
             .call(function() {
-                st.text = "1"
+                st.text = "1";
             })
             .fadeIn(1).fadeOut(1000)
             .call(function() {
                 that.startGame = true;
+                that.stopTimer = false;
                 that.setupStage();
                 st.text = "START"
             })
@@ -140,13 +177,29 @@ tm.define("tmapp.MainScene", {
     setupStage: function() {
         switch(this.gameMode) {
             case GAMEMODE_NORMAL:
-                if (this.stageNumber == 1) {
+                if (this.numStage == 1) {
                     var sp = tmapp.Target(1)
                         .addChildTo(this.mainLayer)
-                        .setPosition(SC_W/2, SC_H/2);
+                        .setPosition(SC_W*0.5, SC_H*0.5);
+                }
+                if (this.numStage == 2) {
+                    var sp = tmapp.Target(1)
+                        .addChildTo(this.mainLayer)
+                        .setPosition(SC_W*0.5, SC_H*0.4);
+                    var sp = tmapp.Target(1)
+                        .addChildTo(this.mainLayer)
+                        .setPosition(SC_W*0.5, SC_H*0.5);
                 }
                 break;
         }
+    },
+
+    //ステージクリア条件達成チェック
+    checkStageClear: function() {
+        if (this.numStage === 1) {
+            if (this.numHit > 0) return true;
+        }
+        return false;
     },
 
     //着弾エフェクト
@@ -162,13 +215,14 @@ tm.define("tmapp.MainScene", {
         }
     },
 
+    //ターゲット当り判定
     checkCollision: function(x, y) {
         var list = this.mainLayer.children;
         list.forEach(function(e, i, a) {
             if (e.isHitPoint(x, y)) {
-                e.damage(x, y);
+                if (e.damage(x, y)) this.numHit++;
             }
-        });
+        }.bind(this));
     },
 
     //ゲームオーバー
