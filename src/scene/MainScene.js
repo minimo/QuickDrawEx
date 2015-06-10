@@ -38,7 +38,6 @@ tm.define("tmapp.MainScene", {
 
     //ラベル用パラメータ
     labelParamBasic: {fontFamily: "UbuntuMono", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
-    timeLabelParam: {fontFamily: "Digital", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
     digitalCenterParam: {fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700},
 
     init: function(mode, retry) {
@@ -60,17 +59,17 @@ tm.define("tmapp.MainScene", {
 
         //タイム表示
         var that = this;
-        this.scoreLabel = tm.display.OutlineLabel("00.00", 100)
+        this.timeLabel = tm.display.OutlineLabel("00.00", 100)
             .addChildTo(this)
-            .setParam(this.timeLabelParam)
+            .setParam({fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700})
             .setPosition(SC_W*0.4, SC_H*0.2);
-        this.scoreLabel.score = 0;
-        this.scoreLabel.update = function() {
-            this.text = ""+(that.gameTime/1000).ceil(2);
-            if (that.gameTime < 10000)this.text = "0"+this.text;
-            if (that.gameTime % 100 == 0)this.text = this.text + "0";
-            if (that.gameTime % 1000 == 0)this.text = this.text + ".00";
-            if (that.gameTime == 0) this.text = "00.00";
+        this.timeLabel.score = 0;
+        this.timeLabel.update = function() {
+            var time = (that.gameTime/10).floor();
+            this.text = ""+(time/100);
+            if (time%100 === 0 ) this.text += ".0";
+            if (time%10 === 0 ) this.text += "0";
+            if (time < 1000) this.text = "0"+this.text;
         }
 
         //ポーズボタン
