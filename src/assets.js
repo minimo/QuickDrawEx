@@ -19,6 +19,7 @@ assets["main"] = {
 
     //Sound
     "bang":     "assets/se_bang.mp3",
+    "empty":    "assets/se_empty.mp3",
 
     //Font
     "UbuntuMono":   "font/UbuntuMono-Bold.ttf",

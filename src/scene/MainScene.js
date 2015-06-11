@@ -79,6 +79,15 @@ tm.define("tmapp.MainScene", {
             if (time < 1000) this.text = "0"+this.text;
         }
 
+        //残弾数表示
+        this.bulletLabel = tm.display.OutlineLabel("15", 80)
+            .addChildTo(this)
+            .setParam({fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700})
+            .setPosition(SC_W*0.5, SC_H*0.8);
+        this.bulletLabel.update = function() {
+            this.text = ""+that.leftBullet;
+        }
+
         //ポーズボタン
         this.pause = tm.extension.Button(200, 60, "PAUSE", {flat: true, fontSize:40})
             .addChildTo(this)
@@ -208,7 +217,6 @@ tm.define("tmapp.MainScene", {
 
     //着弾エフェクト
     addImpact: function(x, y) {
-        appMain.playSE("bang");
         var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Impact)
             .addChildTo(this)
             .setPosition(x, y)
@@ -234,9 +242,15 @@ tm.define("tmapp.MainScene", {
     },
 
     ontouchstart: function(e) {
-        if (this.startGame) {
-            this.addImpact(e.pointing.x, e.pointing.y);
-            this.checkCollision(e.pointing.x, e.pointing.y);
+        if (this.startGame && !this.stopTimer) {
+            if (this.leftBullet > 0) {
+                this.leftBullet--;
+                appMain.playSE("bang");
+                this.addImpact(e.pointing.x, e.pointing.y);
+                this.checkCollision(e.pointing.x, e.pointing.y);
+            } else {
+                appMain.playSE("bang");
+            }
         }
     },
 
