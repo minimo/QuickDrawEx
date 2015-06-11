@@ -15,14 +15,16 @@ tm.define("tmapp.GameoverScene", {
     dispExtend: false,
 
     //ラベル用フォントパラメータ
-    headerParam: {fontFamily:"CasinoRegular", align: "center", baseline:"middle", outlineWidth:2 },
-    labelParam: {fontFamily:"Yasashisa", align: "center", baseline:"middle", outlineWidth:2 },
-    scoreParam: {fontFamily:"Yasashisa", align: "left", baseline:"middle", outlineWidth:2 },
-    extendParam: {fontFamily:"Yasashisa", align: "center", baseline:"middle", outlineWidth:2, fillStyle: "red" },
+    labelParam: {fontFamily:"Orbitron", align: "center", baseline:"middle", outlineWidth:2, fontWeight:700 },
 
-    init: function(parentScene) {
+    init: function(param) {
         this.superInit();
         this.background = "rgba(0, 0, 0, 0.0)";
+
+        this.t1 = tm.display.OutlineLabel("GAME OVER", 80)
+            .addChildTo(this)
+            .setParam(this.labelParam)
+            .setPosition(SC_W*0.5, SC_H*0.2);
 
         //目隠し
         this.mask = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: "rgba(0, 0, 0, 1.0)", strokeStyle: "rgba(0, 0, 0, 1.0)"})
