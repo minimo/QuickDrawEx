@@ -10,8 +10,8 @@ tm.define("tmapp.MainScene", {
     superClass: tm.app.Scene,
 
     //フラグ類
-    gameMode: 0,
     numStage: 0,
+    maxStage: 5,
 
     //遷移情報
     startGame: false,
@@ -40,12 +40,13 @@ tm.define("tmapp.MainScene", {
 
     //ゲーム内時計(ms)
     gameTime: 0,
+    clearTime: [],
 
     //ラベル用パラメータ
     labelParamBasic: {fontFamily: "UbuntuMono", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
     digitalCenterParam: {fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700},
 
-    init: function(mode, retry) {
+    init: function(retry) {
         this.superInit();
         this.background = "rgba(0, 0, 0, 0.0)";
 
@@ -87,7 +88,6 @@ tm.define("tmapp.MainScene", {
             }.bind(this));
 
         //ステージ情報
-        this.gameMode = mode;
         this.numStage = 1;
 
         //初期化
@@ -114,7 +114,9 @@ tm.define("tmapp.MainScene", {
             if (!this.clearStage) {
                 var that = this;
                 this.stopTimer = true;
+                this.clearTime[this.numStage] = this.gameTime;
                 this.clearStage = true;
+
                 var st = tm.display.Label("STAGE CLEAR", 100)
                     .addChildTo(this)
                     .setParam(this.digitalCenterParam)
@@ -167,7 +169,7 @@ tm.define("tmapp.MainScene", {
                 that.setupStage();
                 st.text = "START"
             })
-            .fadeIn(1).fadeOut(1000)
+            .fadeIn(1).wait(500).fadeOut(200)
             .call(function() {
                 st.remove();
             });
@@ -175,22 +177,21 @@ tm.define("tmapp.MainScene", {
 
     //ステージ構築
     setupStage: function() {
-        switch(this.gameMode) {
-            case GAMEMODE_NORMAL:
-                if (this.numStage == 1) {
-                    var sp = tmapp.Target(1)
-                        .addChildTo(this.mainLayer)
-                        .setPosition(SC_W*0.5, SC_H*0.5);
-                }
-                if (this.numStage == 2) {
-                    var sp = tmapp.Target(1)
-                        .addChildTo(this.mainLayer)
-                        .setPosition(SC_W*0.5, SC_H*0.4);
-                    var sp = tmapp.Target(1)
-                        .addChildTo(this.mainLayer)
-                        .setPosition(SC_W*0.5, SC_H*0.5);
-                }
-                break;
+    if (this.numStage == 1) {
+        var x = SC_W*(rand(1,9)*0.1);
+            var y = SC_W*(rand(3,7)*0.1);
+            var sp = tmapp.Target(1)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, y);
+        }
+        if (this.numStage == 2) {
+            for (var i = 0; i < 3; i++) {
+                var x = SC_W*(rand(1,9)*0.1);
+                var y = SC_W*(rand(3,7)*0.1);
+                var sp = tmapp.Target(1)
+                    .addChildTo(this.mainLayer)
+                    .setPosition(x, y);
+            }
         }
     },
 
@@ -198,6 +199,9 @@ tm.define("tmapp.MainScene", {
     checkStageClear: function() {
         if (this.numStage === 1) {
             if (this.numHit > 0) return true;
+        }
+        if (this.numStage === 2) {
+            if (this.numHit > 2) return true;
         }
         return false;
     },
