@@ -65,7 +65,7 @@ tm.define("tmapp.Target", {
         this.isDead = true;
 
         this.gotoAndPlay("damage");
-        this.vx = (this.x - x)/2;
+        this.vx = (this.x - x)/4;
         this.vy = -30;
         this.rot = this.vx;
         this.update = function() {
