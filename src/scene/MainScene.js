@@ -126,7 +126,7 @@ tm.define("tmapp.MainScene", {
                 this.clearTime[this.numStage] = this.gameTime;
                 this.clearStage = true;
 
-                var st = tm.display.Label("STAGE CLEAR", 100)
+                var st = tm.display.Label("STAGE CLEAR", 80)
                     .addChildTo(this)
                     .setParam(this.digitalCenterParam)
                     .setPosition(SC_W*0.5, SC_H*0.5)
@@ -142,6 +142,32 @@ tm.define("tmapp.MainScene", {
                         st.remove();
                     });
             }
+        }
+
+        //ゲームオーバー条件チェック
+        if (this.leftBullet == 0 && !this.clearStage) {
+            var that = this;
+            var st = tm.display.Label("GAME OVER", 80)
+                .addChildTo(this)
+                .setParam(this.digitalCenterParam)
+                .setPosition(SC_W*0.5, SC_H*0.5)
+                .setAlpha(0);
+            st.tweener.clear()
+                .wait(2000)
+                .fadeIn(10)
+                .call(function() {
+                    that.stopTimer = true;
+                })
+                .wait(2000)
+                .fadeOut(10)
+                .call(function() {
+                    st.remove();
+                    var param = {
+                        maxStage: that.maxStage,
+                        clearTime: that.clearTime,
+                    };
+                    appMain.pushScene(tmapp.GameoverScene());
+                });
         }
     },
 

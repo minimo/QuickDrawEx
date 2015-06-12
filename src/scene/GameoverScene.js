@@ -21,6 +21,11 @@ tm.define("tmapp.GameoverScene", {
         this.superInit();
         this.background = "rgba(0, 0, 0, 0.0)";
 
+        //バックグラウンド
+        this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: appMain.bgColor, strokeStyle: appMain.bgColor})
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+
         this.t1 = tm.display.OutlineLabel("GAME OVER", 80)
             .addChildTo(this)
             .setParam(this.labelParam)
@@ -46,6 +51,7 @@ tm.define("tmapp.GameoverScene", {
 
     //タッチorクリック終了処理
     ontouchend: function(e) {
+        appMain.pushScene(tmapp.TitleScene());
     },
 
 });
