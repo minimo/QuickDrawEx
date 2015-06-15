@@ -16,10 +16,10 @@ tm.define("tmapp.Target", {
     //耐久力
     def: 1,
 
-    //行動パターン番号
+    //行動パターン
     pattern: 0,
 
-    init: function(num) {
+    init: function(num, pattern) {
         var sp = tmapp.SpriteSheet.Target[num];
         if (!sp) {
             sp = tmapp.SpriteSheet.Target[0];
@@ -29,12 +29,23 @@ tm.define("tmapp.Target", {
         this.setScale(3);
         this.bx = this.by = 0;
         this.dir = this.beforeDir = 0;   //0:左 1:右
-        
-        this.gotoAndPlay("walk");
+
+        this.pattern = pattern;
+        this.speed = 2;
+
+        switch (pattern) {
+            case 0:
+                this.gotoAndPlay("wait");
+                break;
+            default:
+                this.gotoAndPlay("wait");
+                break;
+        }
     },
 
     update: function() {
-        this.x += -1;
+        this.algorithm();
+
         if (this.bx > this.x) {
             this.dir = 0;
         } else {
@@ -48,6 +59,17 @@ tm.define("tmapp.Target", {
     },
 
     algorithm: function() {
+        if (this.pattern == 0) {
+        }
+        if (this.pattern == 1) {
+            if (this.dir == 0) {
+                this.x += -this.speed;
+                if (this.x < 48) this.dir = 1;
+            } else {
+                this.x += this.speed;
+                if (this.x > SC_W-48) this.dir = 0;
+            }
+        }
     },
 
     damage: function(x, y) {
