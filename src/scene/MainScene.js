@@ -44,6 +44,7 @@ tm.define("tmapp.MainScene", {
 
     //ラベル用パラメータ
     labelParamBasic: {fontFamily: "UbuntuMono", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
+    labelParamCenter: {fontFamily: "UbuntuMono", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700},
     digitalCenterParam: {fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700},
 
     init: function(retry) {
@@ -192,7 +193,7 @@ tm.define("tmapp.MainScene", {
  
         var st = tm.display.Label("STAGE "+this.numStage, 100)
             .addChildTo(this)
-            .setParam(this.digitalCenterParam)
+            .setParam(this.labelParamCenter)
             .setPosition(SC_W*0.5, SC_H*-1.0);
         st.tweener.clear()
             .move(SC_W*0.5, SC_H*0.5, 600, "easeOutSine")
