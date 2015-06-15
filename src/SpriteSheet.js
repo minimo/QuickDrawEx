@@ -37,6 +37,11 @@ tmapp.createSpriteSheet = function() {
             count: 18,
         },
         animations: {
+            "wait": {
+                frames:[7],
+                next: "wait",
+                frequency: 30,
+            },
             "fly": {
                 frames:[1,2,3,2],
                 next: "fly",
@@ -67,6 +72,11 @@ tmapp.createSpriteSheet = function() {
             count: 18,
         },
         animations: {
+            "wait": {
+                frames:[7],
+                next: "wait",
+                frequency: 30,
+            },
             "fly": {
                 frames:[1,2,3,2],
                 next: "fly",
@@ -97,6 +107,11 @@ tmapp.createSpriteSheet = function() {
             count: 18,
         },
         animations: {
+            "wait": {
+                frames:[7],
+                next: "wait",
+                frequency: 30,
+            },
             "fly": {
                 frames:[1,2,3,2],
                 next: "fly",
