@@ -19,6 +19,10 @@ tm.define("tmapp.Target", {
     //行動パターン
     pattern: 0,
 
+    //フロア座標
+    floorY: -1,
+    vy: 0,
+
     init: function(num, pattern) {
         var sp = tmapp.SpriteSheet.Target[num];
         if (!sp) {
@@ -38,6 +42,7 @@ tm.define("tmapp.Target", {
                 this.gotoAndPlay("wait");
                 break;
             case 1:
+            case 2:
                 this.gotoAndPlay("walk");
                 this.speed = (rand(0, 2)==0?3:-3);
                 break;
@@ -49,6 +54,16 @@ tm.define("tmapp.Target", {
 
     update: function() {
         this.algorithm();
+
+        if (this.floorY > 0) {
+            if (this.y > this.floorY) {
+                this.y = this.floorY;
+                this.vy = 0;
+            } else {
+                this.vy += 0.98*4;
+            }
+        }
+        this.x += this.vy;
 
         if (this.bx > this.x) {
             this.dir = 0;
@@ -66,6 +81,14 @@ tm.define("tmapp.Target", {
         if (this.pattern == 0) {
         }
         if (this.pattern == 1) {
+            this.x += this.speed;
+            if (this.speed < 0) {
+                if (this.x < 48) this.speed *= -1;
+            } else {
+                if (this.x > SC_W-48)  this.speed *= -1;
+            }
+        }
+        if (this.pattern == 2) {
             this.x += this.speed;
             if (this.speed < 0) {
                 if (this.x < 48) this.speed *= -1;
@@ -100,6 +123,10 @@ tm.define("tmapp.Target", {
             this.vy += 0.98*4;
             if (this.y > SC_H+64) this.remove();
         };
+    },
+
+    setFloor: function(y) {
+        this.floorY = y;
     },
 });
 

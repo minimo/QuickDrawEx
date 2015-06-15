@@ -63,6 +63,7 @@ tm.define("tmapp.MainScene", {
         //レイヤー準備
         this.lowerLayer = tm.app.Object2D().addChildTo(this);
         this.mainLayer = tm.app.Object2D().addChildTo(this);
+        this.blockLayer = tm.app.Object2D().addChildTo(this);
         this.upperLayer = tm.app.Object2D().addChildTo(this);
 
         //床
@@ -231,25 +232,31 @@ tm.define("tmapp.MainScene", {
             tmapp.Target(1, 0)
                 .addChildTo(this.mainLayer)
                 .setPosition(x, this.floor[y]);
+                .setFloor(y);
         }
         if (this.numStage == 2) {
             var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
             tmapp.Target(1, 0)
                 .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y]);
+                .setPosition(x, this.floor[y])
+                .setFloor(y);
 
             var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
             tmapp.Target(1, 1)
                 .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y]);
+                .setPosition(x, this.floor[y])
+                .setFloor(y);
 
             var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
             tmapp.Target(1, 1)
                 .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y]);
+                .setPosition(x, this.floor[y])
+                .setFloor(y);
+        }
+        if (this.numStage == 3) {
         }
     },
 
