@@ -64,6 +64,17 @@ tm.define("tmapp.MainScene", {
         this.mainLayer = tm.app.Object2D().addChildTo(this);
         this.upperLayer = tm.app.Object2D().addChildTo(this);
 
+        //床
+        for (var y = 0; y < 4; y++) {
+            for (var x = 0; x < 10; x++) {
+                tm.display.Sprite("block", 64, 64)
+                    .addChildTo(this.upperLayer)
+                    .setPosition(x*64, SC_H*0.3+SC_H*y*0.15)
+                    .setOrigin(0,0);
+            }
+        }
+
+
         //タイム表示
         var that = this;
         this.timeLabel = tm.display.OutlineLabel("00.00", 100)
@@ -83,7 +94,7 @@ tm.define("tmapp.MainScene", {
         this.bulletLabel = tm.display.OutlineLabel("15", 80)
             .addChildTo(this)
             .setParam({fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700})
-            .setPosition(SC_W*0.5, SC_H*0.8);
+            .setPosition(SC_W*0.5, SC_H*0.85);
         this.bulletLabel.update = function() {
             this.text = ""+that.leftBullet;
         }
