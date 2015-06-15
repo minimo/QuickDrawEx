@@ -65,15 +65,16 @@ tm.define("tmapp.MainScene", {
         this.upperLayer = tm.app.Object2D().addChildTo(this);
 
         //床
+        this.floor = [];
         for (var y = 0; y < 4; y++) {
             for (var x = 0; x < 10; x++) {
                 tm.display.Sprite("block", 64, 64)
-                    .addChildTo(this.upperLayer)
+                    .addChildTo(this.lowerLayer)
                     .setPosition(x*64, SC_H*0.3+SC_H*y*0.15)
                     .setOrigin(0,0);
             }
+            this.floor[y] = SC_H*0.3+SC_H*y*0.15-48;
         }
-
 
         //タイム表示
         var that = this;
