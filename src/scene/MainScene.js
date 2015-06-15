@@ -228,18 +228,28 @@ tm.define("tmapp.MainScene", {
     if (this.numStage == 1) {
         var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
-            var sp = tmapp.Target(1, 0)
+            tmapp.Target(1, 0)
                 .addChildTo(this.mainLayer)
                 .setPosition(x, this.floor[y]);
         }
         if (this.numStage == 2) {
-            for (var i = 0; i < 3; i++) {
-                var x = SC_W*(rand(1,9)*0.1);
-                var y = rand(0,4);
-                var sp = tmapp.Target(1, 1)
-                    .addChildTo(this.mainLayer)
-                    .setPosition(x, this.floor[y]);
-            }
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 0)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 1)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 1)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y]);
         }
     },
 

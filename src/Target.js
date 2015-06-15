@@ -39,7 +39,7 @@ tm.define("tmapp.Target", {
                 break;
             case 1:
                 this.gotoAndPlay("walk");
-                this.speed = (rand(0, 2)==0?2:-2);
+                this.speed = (rand(0, 2)==0?3:-3);
                 break;
             default:
                 this.gotoAndPlay("wait");
