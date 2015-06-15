@@ -31,11 +31,15 @@ tm.define("tmapp.Target", {
         this.dir = this.beforeDir = 0;   //0:ç∂ 1:âE
 
         this.pattern = pattern;
-        this.speed = 2;
+        this.speed = 0;
 
         switch (pattern) {
             case 0:
                 this.gotoAndPlay("wait");
+                break;
+            case 1:
+                this.gotoAndPlay("walk");
+                this.speed = (rand(0, 2)==0?2:-2);
                 break;
             default:
                 this.gotoAndPlay("wait");
@@ -62,12 +66,11 @@ tm.define("tmapp.Target", {
         if (this.pattern == 0) {
         }
         if (this.pattern == 1) {
-            if (this.dir == 0) {
-                this.x += -this.speed;
-                if (this.x < 48) this.dir = 1;
+            this.x += this.speed;
+            if (this.speed < 0) {
+                if (this.x < 48) this.speed *= -1;
             } else {
-                this.x += this.speed;
-                if (this.x > SC_W-48) this.dir = 0;
+                if (this.x > SC_W-48)  this.speed *= -1;
             }
         }
     },

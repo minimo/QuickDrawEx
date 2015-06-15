@@ -236,7 +236,7 @@ tm.define("tmapp.MainScene", {
             for (var i = 0; i < 3; i++) {
                 var x = SC_W*(rand(1,9)*0.1);
                 var y = rand(0,4);
-                var sp = tmapp.Target(1, 0)
+                var sp = tmapp.Target(1, 1)
                     .addChildTo(this.mainLayer)
                     .setPosition(x, this.floor[y]);
             }
