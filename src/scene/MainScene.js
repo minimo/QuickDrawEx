@@ -279,8 +279,9 @@ tm.define("tmapp.MainScene", {
     //ターゲット当り判定
     checkCollision: function(x, y) {
         var list = this.mainLayer.children;
+        var hit = false;
         list.forEach(function(e, i, a) {
-            if (e.isHitPoint(x, y)) {
+            if (!hit && e.isHitPoint(x, y)) {
                 if (e.damage(x, y)) this.numHit++;
             }
         }.bind(this));
