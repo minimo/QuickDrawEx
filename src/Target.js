@@ -63,7 +63,7 @@ tm.define("tmapp.Target", {
                 this.vy += 0.98*4;
             }
         }
-        this.x += this.vy;
+//        this.y += this.vy;
 
         if (this.bx > this.x) {
             this.dir = 0;

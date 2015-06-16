@@ -142,7 +142,7 @@ tm.define("tmapp.MainScene", {
 
                 var st = tm.display.Label("STAGE CLEAR", 80)
                     .addChildTo(this)
-                    .setParam(this.digitalCenterParam)
+                    .setParam(this.labelParamCenter)
                     .setPosition(SC_W*0.5, SC_H*0.5)
                     .setAlpha(0);
                 st.tweener.clear()
@@ -163,7 +163,7 @@ tm.define("tmapp.MainScene", {
             var that = this;
             var st = tm.display.Label("GAME OVER", 80)
                 .addChildTo(this)
-                .setParam(this.digitalCenterParam)
+                .setParam(this.labelParamCenter)
                 .setPosition(SC_W*0.5, SC_H*0.5)
                 .setAlpha(0);
             st.tweener.clear()
@@ -231,7 +231,7 @@ tm.define("tmapp.MainScene", {
             var y = rand(0,4);
             tmapp.Target(1, 0)
                 .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y]);
+                .setPosition(x, this.floor[y])
                 .setFloor(y);
         }
         if (this.numStage == 2) {
