@@ -226,13 +226,13 @@ tm.define("tmapp.MainScene", {
 
     //ステージ構築
     setupStage: function() {
-    if (this.numStage == 1) {
-        var x = SC_W*(rand(1,9)*0.1);
+        if (this.numStage == 1) {
+            var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
             tmapp.Target(1, 0)
                 .addChildTo(this.mainLayer)
                 .setPosition(x, this.floor[y])
-                .setFloor(y);
+                .setFloor(this.floor[y]);
         }
         if (this.numStage == 2) {
             var x = SC_W*(rand(1,9)*0.1);
@@ -240,21 +240,21 @@ tm.define("tmapp.MainScene", {
             tmapp.Target(1, 0)
                 .addChildTo(this.mainLayer)
                 .setPosition(x, this.floor[y])
-                .setFloor(y);
+                .setFloor(this.floor[y]);
 
             var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
             tmapp.Target(1, 1)
                 .addChildTo(this.mainLayer)
                 .setPosition(x, this.floor[y])
-                .setFloor(y);
+                .setFloor(this.floor[y]);
 
             var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
             tmapp.Target(1, 1)
                 .addChildTo(this.mainLayer)
                 .setPosition(x, this.floor[y])
-                .setFloor(y);
+                .setFloor(this.floor[y]);
         }
         if (this.numStage == 3) {
         }
