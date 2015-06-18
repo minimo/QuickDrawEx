@@ -47,9 +47,13 @@ tm.define("tmapp.Target", {
                 this.gotoAndPlay("wait");
                 break;
             case 1:
-            case 2:
                 this.gotoAndPlay("walk");
                 this.speed = rand(3, 8);
+                if (rand(0, 2)==0)this.speed *= -1;
+                break;
+            case 2:
+                this.gotoAndPlay("walk");
+                this.speed = rand(5, 10);
                 if (rand(0, 2)==0)this.speed *= -1;
                 break;
             default:
@@ -80,6 +84,12 @@ tm.define("tmapp.Target", {
         this.bx = this.x;
         this.by = this.y;
         this.beforeDir = this.dir;
+
+        if (this.vy == 0 ) {
+            if (this.currentAnimationName != "walk") this.gotoAndPlay("walk");
+        } else {
+            if (this.currentAnimationName != "fly") this.gotoAndPlay("fly");
+        }
     },
 
     algorithm: function() {
@@ -107,6 +117,17 @@ tm.define("tmapp.Target", {
                 if (this.x < 48) this.speed *= -1;
             } else {
                 if (this.x > SC_W-48)  this.speed *= -1;
+            }
+            this.interval--;
+            if (this.interval < 0) {
+                var dice = rand(0, 100);
+                if (dice < 30) {
+                    this.vy = -40;
+                    this.interval = 120;
+                } else if (dice < 40) {
+                    this.speed *= -1;
+                    this.interval = 120;
+                }
             }
         }
     },
