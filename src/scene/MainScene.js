@@ -345,13 +345,13 @@ tm.define("tmapp.MainScene", {
         if (this.numStage == 2) {
             if (this.numHit > 2) return true;
         }
-        if (this.numStage == 4) {
-            if (this.numHit > 3) return true;
+        if (this.numStage == 3) {
+            if (this.numHit > 2) return true;
         }
         if (this.numStage == 4) {
-            if (this.numHit > 3) return true;
+            if (this.numHit > 2) return true;
         }
-        if (this.numStage == 4) {
+        if (this.numStage == 5) {
             if (this.numHit > 5) return true;
         }
         return false;

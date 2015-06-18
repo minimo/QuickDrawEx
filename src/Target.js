@@ -86,7 +86,7 @@ tm.define("tmapp.Target", {
         this.beforeDir = this.dir;
 
         if (this.vy == 0 ) {
-            if (this.currentAnimationName != "walk") this.gotoAndPlay("walk");
+            if (this.speed != 0 && this.currentAnimationName != "walk") this.gotoAndPlay("walk");
         } else {
             if (this.currentAnimationName != "fly") this.gotoAndPlay("fly");
         }
