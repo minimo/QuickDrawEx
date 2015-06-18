@@ -149,12 +149,18 @@ tm.define("tmapp.MainScene", {
                     .wait(3000)
                     .fadeIn(10)
                     .wait(2000)
-                    .fadeOut(10)
-                    .call(function() {
+                    .fadeOut(10);
+
+                //オールクリア判定
+                if (this.numStage == this.maxStage) {
+                } else {
+                    //次のステージへ
+                    st.tweener.call(function() {
                         that.numStage++;
                         that.startup();
                         st.remove();
                     });
+                }
             }
         }
 
@@ -244,6 +250,28 @@ tm.define("tmapp.MainScene", {
 
             var x = SC_W*(rand(1,9)*0.1);
             var y = rand(0,4);
+            tmapp.Target(1, 0)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 0)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+        }
+        if (this.numStage == 3) {
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 0)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
             tmapp.Target(1, 1)
                 .addChildTo(this.mainLayer)
                 .setPosition(x, this.floor[y])
@@ -256,17 +284,75 @@ tm.define("tmapp.MainScene", {
                 .setPosition(x, this.floor[y])
                 .setFloor(this.floor[y]);
         }
-        if (this.numStage == 3) {
+        if (this.numStage == 4) {
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 1)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 2)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 2)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+        }
+        if (this.numStage == 5) {
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 2)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 2)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 2)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
+
+            var x = SC_W*(rand(1,9)*0.1);
+            var y = rand(0,4);
+            tmapp.Target(1, 2)
+                .addChildTo(this.mainLayer)
+                .setPosition(x, this.floor[y])
+                .setFloor(this.floor[y]);
         }
     },
 
     //ステージクリア条件達成チェック
     checkStageClear: function() {
-        if (this.numStage === 1) {
+        if (this.numStage == 1) {
             if (this.numHit > 0) return true;
         }
-        if (this.numStage === 2) {
+        if (this.numStage == 2) {
             if (this.numHit > 2) return true;
+        }
+        if (this.numStage == 4) {
+            if (this.numHit > 3) return true;
+        }
+        if (this.numStage == 4) {
+            if (this.numHit > 3) return true;
+        }
+        if (this.numStage == 4) {
+            if (this.numHit > 5) return true;
         }
         return false;
     },
