@@ -21,7 +21,12 @@ tm.define("tmapp.Target", {
 
     //フロア座標
     floorY: -1,
+
+    //重力加速度
     vy: 0,
+
+    //行動パターンインターバル
+    interval: 0,
 
     init: function(num, pattern) {
         var sp = tmapp.SpriteSheet.Target[num];
@@ -44,7 +49,8 @@ tm.define("tmapp.Target", {
             case 1:
             case 2:
                 this.gotoAndPlay("walk");
-                this.speed = (rand(0, 2)==0?3:-3);
+                this.speed = rand(3, 8);
+                if (rand(0, 2)==0)this.speed *= -1;
                 break;
             default:
                 this.gotoAndPlay("wait");
@@ -85,6 +91,14 @@ tm.define("tmapp.Target", {
                 if (this.x < 48) this.speed *= -1;
             } else {
                 if (this.x > SC_W-48)  this.speed *= -1;
+            }
+            this.interval--;
+            if (this.interval < 0) {
+                var dice = rand(0, 100);
+                if (dice < 20) {
+                    this.speed *= -1;
+                    this.interval = 120;
+                }
             }
         }
         if (this.pattern == 2) {
