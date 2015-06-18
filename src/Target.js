@@ -56,14 +56,13 @@ tm.define("tmapp.Target", {
         this.algorithm();
 
         if (this.floorY > 0) {
+            this.vy += 0.98*4;
+            this.y += this.vy;
             if (this.y > this.floorY) {
                 this.y = this.floorY;
                 this.vy = 0;
-            } else {
-                this.vy += 0.98*4;
             }
         }
-        this.y += this.vy;
 
         if (this.bx > this.x) {
             this.dir = 0;
