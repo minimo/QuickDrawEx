@@ -392,7 +392,7 @@ tm.define("tmapp.MainScene", {
                 this.addImpact(e.pointing.x, e.pointing.y);
                 this.checkCollision(e.pointing.x, e.pointing.y);
             } else {
-                appMain.playSE("bang");
+                appMain.playSE("empty");
             }
         }
     },
