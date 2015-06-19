@@ -21,7 +21,7 @@ tm.define("tmapp.MainScene", {
     stopTimer: false,
 
     //残弾数
-    leftBullet: 15,
+    leftBullet: 20,
 
     //ヒット数
     numHit: 0,
@@ -241,26 +241,14 @@ tm.define("tmapp.MainScene", {
                 .setFloor(this.floor[y]);
         }
         if (this.numStage == 2) {
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 0)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
-
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 0)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
-
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 0)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
+            for (var i = 0; i < 3; i++) {
+                var x = SC_W*(rand(1,9)*0.1);
+                var y = rand(0,4);
+                tmapp.Target(1, 0)
+                    .addChildTo(this.mainLayer)
+                    .setPosition(x, this.floor[y])
+                    .setFloor(this.floor[y]);
+            }
         }
         if (this.numStage == 3) {
             var x = SC_W*(rand(1,9)*0.1);
@@ -270,19 +258,14 @@ tm.define("tmapp.MainScene", {
                 .setPosition(x, this.floor[y])
                 .setFloor(this.floor[y]);
 
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 1)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
-
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 1)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
+            for (var i = 0; i < 2; i++) {
+                var x = SC_W*(rand(1,9)*0.1);
+                var y = rand(0,4);
+                tmapp.Target(1, 1)
+                    .addChildTo(this.mainLayer)
+                    .setPosition(x, this.floor[y])
+                    .setFloor(this.floor[y]);
+            }
         }
         if (this.numStage == 4) {
             var x = SC_W*(rand(1,9)*0.1);
@@ -292,48 +275,24 @@ tm.define("tmapp.MainScene", {
                 .setPosition(x, this.floor[y])
                 .setFloor(this.floor[y]);
 
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 2)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
-
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 2)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
+            for (var i = 0; i < 2; i++) {
+                var x = SC_W*(rand(1,9)*0.1);
+                var y = rand(0,4);
+                tmapp.Target(1, 2)
+                    .addChildTo(this.mainLayer)
+                    .setPosition(x, this.floor[y])
+                    .setFloor(this.floor[y]);
+            }
         }
         if (this.numStage == 5) {
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 2)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
-
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 2)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
-
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 2)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
-
-            var x = SC_W*(rand(1,9)*0.1);
-            var y = rand(0,4);
-            tmapp.Target(1, 2)
-                .addChildTo(this.mainLayer)
-                .setPosition(x, this.floor[y])
-                .setFloor(this.floor[y]);
+            for (var i = 0; i < 4; i++) {
+                var x = SC_W*(rand(1,9)*0.1);
+                var y = rand(0,4);
+                tmapp.Target(1, (i%2)+1)
+                    .addChildTo(this.mainLayer)
+                    .setPosition(x, this.floor[y])
+                    .setFloor(this.floor[y]);
+            }
         }
     },
 
