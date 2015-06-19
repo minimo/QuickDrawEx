@@ -12,10 +12,10 @@ assets["main"] = {
     "box":      "assets/box.png",
     "block":    "assets/block.png",
     "wall":     "assets/wall.png",
-    "target1":  "assets/hiyoco_waru_full.png",
-    "target2":  "assets/hiyoco_mecha_full.png",
-    "target3":  "assets/hiyoco_normal_full.png",
     "impact":   "assets/bang.png",
+    "target_waru":  "assets/hiyoco_waru_full.png",
+    "target_mecha": "assets/hiyoco_mecha_full.png",
+    "target_normal":"assets/hiyoco_normal_full.png",
 
     //Sound
     "bang":     "assets/se_bang.mp3",

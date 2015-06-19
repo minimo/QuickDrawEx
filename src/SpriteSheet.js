@@ -30,7 +30,7 @@ tmapp.createSpriteSheet = function() {
     //ターゲット用
     tmapp.SpriteSheet.Target = [];
     tmapp.SpriteSheet.Target[1] = tm.asset.SpriteSheet({
-        image: "target1",
+        image: "target_waru",
         frame: {
             width: 32,
             height: 32,
@@ -65,7 +65,7 @@ tmapp.createSpriteSheet = function() {
         },
     });
     tmapp.SpriteSheet.Target[2] = tm.asset.SpriteSheet({
-        image: "target2",
+        image: "target_mecha",
         frame: {
             width: 32,
             height: 32,
@@ -100,7 +100,7 @@ tmapp.createSpriteSheet = function() {
         },
     });
     tmapp.SpriteSheet.Target[3] = tm.asset.SpriteSheet({
-        image: "target3",
+        image: "target_normal",
         frame: {
             width: 32,
             height: 32,
