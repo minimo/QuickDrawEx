@@ -228,6 +228,7 @@ tm.define("tmapp.MainScene", {
                 that.startGame = true;
                 that.stopTimer = false;
                 that.setupStage();
+                st.fontSize = 100;
                 st.text = "START"
             })
             .fadeIn(1).wait(500).fadeOut(200)
