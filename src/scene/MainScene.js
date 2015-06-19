@@ -121,6 +121,12 @@ tm.define("tmapp.MainScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
         this.mask.tweener.clear().fadeOut(200);
+
+        //目隠し（白）
+        this.maskW = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: "rgba(255, 255, 255, 1.0)", strokeStyle: "rgba(255, 255, 255, 1.0)"})
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+            .setAlpha(0);
     },
     
     update: function(app) {
