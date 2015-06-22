@@ -110,6 +110,14 @@ tm.define("tmapp.MainScene", {
                 appMain.pushScene(tmapp.PauseScene(this));
             }.bind(this));
 
+        //ラストステージイベント用
+        this.bomb = tmapp.Bomb()
+            .addChildTo(this.mainLayer)
+            .setPosition(SC_W/2, SC_H/2)
+            .setFloor(this.floor[2])
+            .setAlpha(0);
+        this.bomb.isCollision = false;
+
         //ステージ情報
         this.numStage = 1;
 

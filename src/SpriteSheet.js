@@ -27,6 +27,22 @@ tmapp.createSpriteSheet = function() {
         },
     });
 
+    //爆発エフェクト用
+    tmapp.SpriteSheet.Effect = tm.asset.SpriteSheet({
+        image: "effect",
+        frame: {
+            width: 32,
+            height: 48,
+            count: 8,
+        },
+        animations: {
+            "explode": {
+                frames:[0,1,2,3,4,5,6,7],
+                frequency: 3,
+            },
+        },
+    });
+
     //ターゲット用
     tmapp.SpriteSheet.Target = [];
     tmapp.SpriteSheet.Target[1] = tm.asset.SpriteSheet({
