@@ -175,11 +175,10 @@ tm.define("tmapp.MainScene", {
                 var st = tm.display.Label("STAGE CLEAR", 80)
                     .addChildTo(this)
                     .setParam(this.labelParamCenter)
-                    .setPosition(SC_W*0.5, SC_H*0.5)
-                    .setAlpha(0);
+                    .setPosition(SC_W*0.5, SC_H*-0.5);
                 st.tweener.clear()
                     .wait(2000)
-                    .fadeIn(10)
+                    .move(SC_W*0.5, SC_H*0.45, 200, "easeOutSine")
                     .wait(3000)
                     .fadeOut(10);
 
@@ -187,11 +186,10 @@ tm.define("tmapp.MainScene", {
                 var t = tm.display.Label("TIME: "+this.convertTimeFormat(this.stageTime), 80)
                     .addChildTo(this)
                     .setParam(this.labelParamCenter)
-                    .setPosition(SC_W*0.5, SC_H*0.6)
-                    .setAlpha(0);
+                    .setPosition(SC_W*1.5, SC_H*1.5);
                 t.tweener.clear()
                     .wait(3000)
-                    .fadeIn(10)
+                    .move(SC_W*0.5, SC_H*0.55, 200, "easeOutSine")
                     .wait(2000)
                     .fadeOut(10);
 
@@ -199,7 +197,7 @@ tm.define("tmapp.MainScene", {
                 if (this.numStage == this.maxStage) {
                     //リザルト表示
                     st.tweener.call(function() {
-                        that.dispResult();
+                        that.dispResult(true);
                         st.remove();
                         t.remove();
                     });
@@ -399,7 +397,7 @@ tm.define("tmapp.MainScene", {
     },
 
     //リザルト表示
-    dispResult: function() {
+    dispResult: function(all) {
         this.lowerLayer.remove();
         this.mainLayer.remove();
         this.infoLayer.remove();
@@ -417,6 +415,15 @@ tm.define("tmapp.MainScene", {
             r.tweener.clear()
                 .wait(50*i)
                 .move(SC_W*0.5, SC_H*0.25+SC_H*0.1*i, 200, "easeOutSine");
+        }
+        if (all) {
+            var r = tm.display.Label("ALL CLEAR TIME", 80)
+                .addChildTo(this)
+                .setParam(this.labelParamCenter)
+                .setPosition(SC_W*0.5, SC_H*1.5);
+            r.tweener.clear()
+                .wait(300)
+                .move(SC_W*0.5, SC_H*0.7, 200, "easeOutSine");
         }
     },
 
