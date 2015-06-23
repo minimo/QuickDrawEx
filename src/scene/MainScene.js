@@ -19,6 +19,7 @@ tm.define("tmapp.MainScene", {
     retryStart: false,
     clearStage: false,
     stopTimer: false,
+    gameover: false,
 
     //残弾数
     leftBullet: 20,
