@@ -14,6 +14,7 @@ assets["main"] = {
     "wall":     "assets/wall.png",
     "impact":   "assets/bang.png",
     "effect":   "assets/effect.png",
+    "bakudan":  "assets/bakudan.png",
     "target_waru":  "assets/hiyoco_waru_full.png",
     "target_mecha": "assets/hiyoco_mecha_full.png",
     "target_normal":"assets/hiyoco_normal_full.png",
