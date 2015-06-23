@@ -20,6 +20,7 @@ tm.define("tmapp.MainScene", {
     clearStage: false,
     stopTimer: false,
     gameover: false,
+    timeup: false,
 
     //残弾数
     leftBullet: 20,
@@ -148,7 +149,10 @@ tm.define("tmapp.MainScene", {
             this.gameTime += app.deltaTime;
             this.stageTime += app.deltaTime;
             if (this.gameTime < 0) this.gameTime = 0;
-            if (this.gameTime > 100000) this.gameTime = 100000;
+            if (this.gameTime > 60000) {
+                this.gameTime = 60000;
+                this.timeup = true;
+            }
         }
 
         //最終ステージエクストラターゲット
@@ -212,31 +216,35 @@ tm.define("tmapp.MainScene", {
         }
 
         //ゲームオーバー条件チェック
-        if (this.leftBullet == 0 && !this.clearStage && !this.gameover) {
-            this.gameover = true;
-            var that = this;
-            var st = tm.display.Label("BULLET EMPTY!!", 80)
-                .addChildTo(this)
-                .setParam(this.labelParamCenter)
-                .setPosition(SC_W*0.5, SC_H*0.5)
-                .setAlpha(0);
-            st.tweener.clear()
-                .wait(2000)
-                .fadeIn(10)
-                .call(function() {
-                    that.stopTimer = true;
-                })
-                .wait(2000)
-                .fadeOut(10)
-                .call(function() {
-                    st.remove();
-                    var param = {
-                        maxStage: that.maxStage,
-                        clearTime: that.clearTime,
-                    };
-//                    appMain.pushScene(tmapp.GameoverScene());
-                    that.dispResult();
-                });
+        if (this.leftBullet == 0 || this.timeup) {
+            if(!this.clearStage && !this.gameover) {
+                this.gameover = true;
+                var that = this;
+                var text = "BULLET EMPTY!!"
+                if (this.timeup) text = "TIME UP!!"
+                var st = tm.display.Label(text, 80)
+                    .addChildTo(this)
+                    .setParam(this.labelParamCenter)
+                    .setPosition(SC_W*0.5, SC_H*0.5)
+                    .setAlpha(0);
+                st.tweener.clear()
+                    .wait(2000)
+                    .fadeIn(10)
+                    .call(function() {
+                        that.stopTimer = true;
+                    })
+                    .wait(2000)
+                    .fadeOut(10)
+                    .call(function() {
+                        st.remove();
+                        var param = {
+                            maxStage: that.maxStage,
+                            clearTime: that.clearTime,
+                        };
+//                        appMain.pushScene(tmapp.GameoverScene());
+                        that.dispResult();
+                    });
+            }
         }
     },
 
