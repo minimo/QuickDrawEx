@@ -26,6 +26,10 @@ tm.define("tmapp.TitleScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
 
+        this.wall = tm.display.Sprite("wall", SC_W, SC_H)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+
         this.t1 = tm.display.OutlineLabel("QUICK", 80)
             .addChildTo(this)
             .setParam(this.leftParam)

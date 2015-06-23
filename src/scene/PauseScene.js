@@ -28,6 +28,10 @@ tm.define("tmapp.PauseScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
+        this.wall = tm.display.Sprite("wall", SC_W, SC_H)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+
         var lb = tm.display.OutlineLabel("PAUSE", 60)
             .addChildTo(this)
             .setParam(this.headerParam)
