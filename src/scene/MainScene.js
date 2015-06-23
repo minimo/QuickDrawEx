@@ -40,7 +40,9 @@ tm.define("tmapp.MainScene", {
 
     //ゲーム内時計(ms)
     gameTime: 0,
+    stageTime: 0,
     clearTime: [],
+    stageResult: [],
 
     //ラベル用パラメータ
     labelParamBasic: {fontFamily: "UbuntuMono", align: "left", baseline: "middle",outlineWidth: 3, fontWeight:700},
@@ -142,6 +144,7 @@ tm.define("tmapp.MainScene", {
 
         if (!this.stopTimer) {
             this.gameTime += app.deltaTime;
+            this.stageTime += app.deltaTime;
             if (this.gameTime < 0) this.gameTime = 0;
             if (this.gameTime > 100000) this.gameTime = 100000;
         }
@@ -160,6 +163,7 @@ tm.define("tmapp.MainScene", {
                 var that = this;
                 this.stopTimer = true;
                 this.clearTime[this.numStage] = this.gameTime;
+                this.stageResult[this.numStage] = this.stageTime;
                 this.clearStage = true;
 
                 var st = tm.display.Label("STAGE CLEAR", 80)
@@ -168,6 +172,23 @@ tm.define("tmapp.MainScene", {
                     .setPosition(SC_W*0.5, SC_H*0.5)
                     .setAlpha(0);
                 st.tweener.clear()
+                    .wait(2000)
+                    .fadeIn(10)
+                    .wait(3000)
+                    .fadeOut(10);
+
+                //ステージクリアタイム表示
+                var time = (this.stageTime/10).floor();
+                var text = ""+(time/100);
+                if (time%100 === 0 ) text += ".0";
+                if (time%10 === 0 ) text += "0";
+                if (time < 1000) text = "0"+text;
+                var t = tm.display.Label("TIME: "+text, 80)
+                    .addChildTo(this)
+                    .setParam(this.labelParamCenter)
+                    .setPosition(SC_W*0.5, SC_H*0.6)
+                    .setAlpha(0);
+                t.tweener.clear()
                     .wait(3000)
                     .fadeIn(10)
                     .wait(2000)
@@ -175,12 +196,19 @@ tm.define("tmapp.MainScene", {
 
                 //オールクリア判定
                 if (this.numStage == this.maxStage) {
+                    //リザルト表示
+                    st.tweener.call(function() {
+                        that.dispResult();
+                        st.remove();
+                        t.remove();
+                    });
                 } else {
                     //次のステージへ
                     st.tweener.call(function() {
                         that.numStage++;
                         that.startup();
                         st.remove();
+                        t.remove();
                     });
                 }
             }
@@ -219,6 +247,7 @@ tm.define("tmapp.MainScene", {
 
         this.clearStage = false;
         this.numHit = 0;
+        this.stageTime = 0;
  
         var st = tm.display.Label("STAGE "+this.numStage, 100)
             .addChildTo(this)
@@ -334,9 +363,13 @@ tm.define("tmapp.MainScene", {
             if (this.numHit > 2) return true;
         }
         if (this.numStage == 5) {
-            if (this.numHit > 5) return true;
+            if (this.numHit > 4) return true;
         }
         return false;
+    },
+
+    //リザルト表示
+    dispResult: function() {
     },
 
     //着弾エフェクト
