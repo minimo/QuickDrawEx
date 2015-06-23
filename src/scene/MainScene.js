@@ -186,7 +186,7 @@ tm.define("tmapp.MainScene", {
                 var t = tm.display.Label("TIME: "+this.convertTimeFormat(this.stageTime), 80)
                     .addChildTo(this)
                     .setParam(this.labelParamCenter)
-                    .setPosition(SC_W*1.5, SC_H*1.5);
+                    .setPosition(SC_W*0.5, SC_H*1.5);
                 t.tweener.clear()
                     .wait(3000)
                     .move(SC_W*0.5, SC_H*0.55, 200, "easeOutSine")
