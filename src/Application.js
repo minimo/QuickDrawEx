@@ -23,6 +23,9 @@ tm.define("tmapp.CanvasApp", {
     //バックグラウンドカラー
     bgColor: 'rgba(0, 0, 0, 1)',
 
+    //スコア記録
+    recordNormal: [],
+
     init: function(id) {
         this.superInit(id);
         this.resize(SC_W, SC_H).fitWindow();
@@ -72,11 +75,43 @@ tm.define("tmapp.CanvasApp", {
 
     //設定データの保存
     saveConfig: function() {
+        //設定保存
+        var config = {
+            "firstGame": false,
+            "language": this.language,
+            "volumeBGM": this.sounds.volumeBGM,
+            "volumeSE": this.sounds.volumeSE,
+        };
+        localStorage.setItem("config", JSON.stringify(config));
+
+        //スコア保存
+        localStorage.setItem("recordNormal", JSON.stringify(this.recordNormal));
         return this;
     },
 
     //設定データの読み込み
     loadConfig: function() {
+        var cfg = localStorage.getItem("config");
+        if (cfg) {
+            var cfgDef = {
+                "language": "JAPANESE",
+                "volumeBGM": 5,
+                "volumeSE": 5,
+            }
+            var c = JSON.parse(cfg);
+            c.$safe(cfgDef);
+
+            this.firstGame = false;
+            this.language = c.language;
+            if (this.language == 0) this.language = "JAPANESE";
+            if (this.language == 1) this.language = "ENGLISH";
+            this.sounds.volumeBGM = c.volumeBGM;
+            this.sounds.volumeSE = c.volumeSE;
+        }
+        var rec = localStorage.getItem("recordNormal");
+        if (rec) {
+            this.recordNormal = JSON.parse(rec);
+        }
         return this;
     },
 
