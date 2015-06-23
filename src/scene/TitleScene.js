@@ -41,13 +41,12 @@ tm.define("tmapp.TitleScene", {
         this.t1.tweener.clear().move(SC_W*0.2, SC_H*0.3, 500);
         this.t2.tweener.clear().move(SC_W*0.8, SC_H*0.4, 500);
 
-        var lb = tm.display.OutlineLabel("touch start", 50)
+        var lb = tm.display.Label("touch start", 50)
             .addChildTo(this)
             .setParam(this.labelParam)
             .setPosition(SC_W*0.5, SC_H*0.8);
         lb.tweener.clear().wait(300).to({alpha:0}, 1000, "easeInSine").wait(100).to({alpha:1}, 1000, "easeOutSine").setLoop(true);
             
-
         //目隠し
         this.mask = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: "rgba(0, 0, 0, 1.0)", strokeStyle: "rgba(0, 0, 0, 1.0)"})
             .addChildTo(this)
