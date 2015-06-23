@@ -67,6 +67,7 @@ tm.define("tmapp.MainScene", {
         this.mainLayer = tm.app.Object2D().addChildTo(this);
         this.blockLayer = tm.app.Object2D().addChildTo(this);
         this.upperLayer = tm.app.Object2D().addChildTo(this);
+        this.infoLayer = tm.app.Object2D().addChildTo(this);
 
         //床
         this.floor = [];
@@ -83,7 +84,7 @@ tm.define("tmapp.MainScene", {
         //タイム表示
         var that = this;
         this.timeLabel = tm.display.OutlineLabel("00.00", 100)
-            .addChildTo(this)
+            .addChildTo(this.infoLayer)
             .setParam({fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700})
             .setPosition(SC_W*0.5, SC_H*0.1);
         this.timeLabel.score = 0;
@@ -97,7 +98,7 @@ tm.define("tmapp.MainScene", {
 
         //残弾数表示
         this.bulletLabel = tm.display.OutlineLabel("15", 80)
-            .addChildTo(this)
+            .addChildTo(this.infoLayer)
             .setParam({fontFamily: "Digital", align: "center", baseline: "middle",outlineWidth: 3, fontWeight:700})
             .setPosition(SC_W*0.5, SC_H*0.85);
         this.bulletLabel.update = function() {
@@ -106,7 +107,7 @@ tm.define("tmapp.MainScene", {
 
         //ポーズボタン
         this.pause = tm.extension.Button(200, 60, "PAUSE", {flat: true, fontSize:40})
-            .addChildTo(this)
+            .addChildTo(this.infoLayer)
             .setPosition(SC_W*0.84, 30)
             .addEventListener("pushed", function() {
                 appMain.pushScene(tmapp.PauseScene(this));
@@ -178,12 +179,7 @@ tm.define("tmapp.MainScene", {
                     .fadeOut(10);
 
                 //ステージクリアタイム表示
-                var time = (this.stageTime/10).floor();
-                var text = ""+(time/100);
-                if (time%100 === 0 ) text += ".0";
-                if (time%10 === 0 ) text += "0";
-                if (time < 1000) text = "0"+text;
-                var t = tm.display.Label("TIME: "+text, 80)
+                var t = tm.display.Label("TIME: "+this.convertTimeFormat(this.stageTime), 80)
                     .addChildTo(this)
                     .setParam(this.labelParamCenter)
                     .setPosition(SC_W*0.5, SC_H*0.6)
@@ -215,9 +211,10 @@ tm.define("tmapp.MainScene", {
         }
 
         //ゲームオーバー条件チェック
-        if (this.leftBullet == 0 && !this.clearStage) {
+        if (this.leftBullet == 0 && !this.clearStage && !this.gameover) {
+            this.gameover = true;
             var that = this;
-            var st = tm.display.Label("GAME OVER", 80)
+            var st = tm.display.Label("BULLET EMPTY!!", 80)
                 .addChildTo(this)
                 .setParam(this.labelParamCenter)
                 .setPosition(SC_W*0.5, SC_H*0.5)
@@ -236,7 +233,8 @@ tm.define("tmapp.MainScene", {
                         maxStage: that.maxStage,
                         clearTime: that.clearTime,
                     };
-                    appMain.pushScene(tmapp.GameoverScene());
+//                    appMain.pushScene(tmapp.GameoverScene());
+                    that.dispResult();
                 });
         }
     },
@@ -368,10 +366,6 @@ tm.define("tmapp.MainScene", {
         return false;
     },
 
-    //リザルト表示
-    dispResult: function() {
-    },
-
     //着弾エフェクト
     addImpact: function(x, y) {
         var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Impact)
@@ -395,8 +389,37 @@ tm.define("tmapp.MainScene", {
         }.bind(this));
     },
 
-    //ゲームオーバー
-    gameover: function() {
+    //リザルト表示
+    dispResult: function() {
+        this.lowerLayer.remove();
+        this.mainLayer.remove();
+        this.infoLayer.remove();
+
+        var st = tm.display.Label("RESULT", 80)
+            .addChildTo(this)
+            .setParam(this.labelParamCenter)
+            .setPosition(SC_W*0.5, SC_H*0.1);
+
+        for (var i = 0; i < 5; i++) {
+            var r = tm.display.Label( (i+1)+": "+this.convertTimeFormat(this.stageResult[i+1]), 80)
+                .addChildTo(this)
+                .setParam(this.labelParamCenter)
+                .setPosition(SC_W*-0.5+SC_W*(i%2)*2, SC_H*0.25+SC_H*0.1*i);
+            r.tweener.clear()
+                .wait(50*i)
+                .move(SC_W*0.5, SC_H*0.25+SC_H*0.1*i, 200, "easeOutSine");
+        }
+    },
+
+    //小数点付き表記に変換
+    convertTimeFormat: function(time) {
+        if (isNaN(time))return "--.--";
+        time = (time/10).floor();
+        var text = ""+(time/100);
+        if (time%100 === 0 ) text += ".0";
+        if (time%10 === 0 ) text += "0";
+        if (time < 1000) text = "0"+text;
+        return text;
     },
 
     ontouchstart: function(e) {
