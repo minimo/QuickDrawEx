@@ -188,9 +188,9 @@ tm.define("tmapp.MainScene", {
                     .setParam(this.labelParamCenter)
                     .setPosition(SC_W*0.5, SC_H*1.5);
                 t.tweener.clear()
-                    .wait(3000)
+                    .wait(2100)
                     .move(SC_W*0.5, SC_H*0.55, 200, "easeOutSine")
-                    .wait(2000)
+                    .wait(2900)
                     .fadeOut(10);
 
                 //オールクリア判定
@@ -394,13 +394,20 @@ tm.define("tmapp.MainScene", {
                 .move(SC_W*0.5, SC_H*0.25+SC_H*0.1*i, 200, "easeOutElastic");
         }
         if (all) {
-            var r = tm.display.Label("ALL CLEAR TIME", 80)
+            var r = tm.display.Label("TOTAL", 80)
                 .addChildTo(this)
                 .setParam(this.labelParamCenter)
                 .setPosition(SC_W*0.5, SC_H*1.5);
             r.tweener.clear()
-                .wait(300)
-                .move(SC_W*0.5, SC_H*0.7, 200, "easeOutSine");
+                .wait(500)
+                .move(SC_W*0.5, SC_H*0.75, 200, "easeOutSine");
+            var r = tm.display.Label(this.convertTimeFormat(this.gameTime), 80)
+                .addChildTo(this)
+                .setParam(this.labelParamCenter)
+                .setPosition(SC_W*0.5, SC_H*1.5);
+            r.tweener.clear()
+                .wait(500)
+                .move(SC_W*0.5, SC_H*0.85, 200, "easeOutSine");
         }
     },
 
