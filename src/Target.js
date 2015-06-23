@@ -166,6 +166,81 @@ tm.define("tmapp.Target", {
 });
 
 tm.define("tmapp.Bomb", {
+    superClass: "tm.display.Sprite",
+
+    //設定フラグ
+    isCollision: true,
+    isDead: false,
+
+    //耐久力
+    def: 1,
+
+    //フロア座標
+    floorY: -1,
+
+    //重力加速度
+    vy: 0,
+
+    init: function() {
+        this.superInit("bakudan", 128, 128);
+    },
+    
+    update: function() {
+        if (this.floorY > 0) {
+            this.vy += 0.98*4;
+            this.y += this.vy;
+            if (this.y > this.floorY) {
+                this.y = this.floorY;
+                this.vy = 0;
+            }
+        }
+
+        if (this.bx > this.x) {
+            this.dir = 0;
+        } else {
+            this.dir = 1;
+        }
+        if (this.dir !== this.beforeDir) this.scaleX *= -1;
+
+        this.bx = this.x;
+        this.by = this.y;
+        this.beforeDir = this.dir;
+    },
+
+    damage: function(x, y) {
+        if (this.isDead || !this.isCollision)return;
+        this.def--;
+        if (this.def < 1) {
+            this.dead(x, y);
+            return true;
+        }
+        return false;
+    },
+
+    dead: function(x, y) {
+        var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Effect)
+            .addChildTo(this.parent)
+            .setPosition(x, y)
+            .setScale(10)
+            .setOrigin(0.5, 0.8)
+            .gotoAndPlay("explode");
+        p.onanimationend = function() {
+            this.remove();
+        }
+
+        this.isCollision = false;
+        this.isDead = true;
+        this.remove();
+    },
+
+    setFloor: function(y) {
+        this.floorY = y;
+        return this;
+    },
+});
+
+/*
+tm.define("tmapp.Bomb", {
     superClass: "tmapp.Target",
 
     init: function() {
@@ -187,5 +262,6 @@ tm.define("tmapp.Bomb", {
         this.remove();
     },
 });
+*/
 
 })();
