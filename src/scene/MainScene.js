@@ -146,6 +146,14 @@ tm.define("tmapp.MainScene", {
             if (this.gameTime > 100000) this.gameTime = 100000;
         }
 
+        //最終ステージエクストラターゲット
+        if (this.numStage == 5) {
+            if (this.numHit == 4 && !this.bomb.isCollision) {
+                this.bomb.setAlpha(1);
+                this.bomb.isCollision = true;
+            }
+        }
+
         //ステージクリア条件チェック
         if (this.checkStageClear()) {
             if (!this.clearStage) {
