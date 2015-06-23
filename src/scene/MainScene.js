@@ -214,8 +214,8 @@ tm.define("tmapp.MainScene", {
         }
 
         //ゲームオーバー条件チェック
-        if (this.leftBullet == 0 || this.timeup) {
-            if(!this.clearStage && !this.gameover) {
+        if(!this.stopTimer && !this.clearStage && !this.gameover) {
+            if (this.leftBullet == 0 || this.timeup) {
                 this.gameover = true;
                 var that = this;
                 var text = "BULLET EMPTY!!"
@@ -373,6 +373,37 @@ tm.define("tmapp.MainScene", {
         return false;
     },
 
+    //リザルト表示
+    dispResult: function(all) {
+        this.lowerLayer.remove();
+        this.mainLayer.remove();
+        this.infoLayer.remove();
+
+        var st = tm.display.Label("RESULT", 80)
+            .addChildTo(this)
+            .setParam(this.labelParamCenter)
+            .setPosition(SC_W*0.5, SC_H*0.1);
+
+        for (var i = 0; i < 5; i++) {
+            var r = tm.display.Label( (i+1)+": "+this.convertTimeFormat(this.stageResult[i+1]), 80)
+                .addChildTo(this)
+                .setParam(this.labelParamCenter)
+                .setPosition(SC_W*-0.5+SC_W*(i%2)*2, SC_H*0.25+SC_H*0.1*i);
+            r.tweener.clear()
+                .wait(50*i)
+                .move(SC_W*0.5, SC_H*0.25+SC_H*0.1*i, 200, "easeOutElastic");
+        }
+        if (all) {
+            var r = tm.display.Label("ALL CLEAR TIME", 80)
+                .addChildTo(this)
+                .setParam(this.labelParamCenter)
+                .setPosition(SC_W*0.5, SC_H*1.5);
+            r.tweener.clear()
+                .wait(300)
+                .move(SC_W*0.5, SC_H*0.7, 200, "easeOutSine");
+        }
+    },
+
     //着弾エフェクト
     addImpact: function(x, y) {
         var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Impact)
@@ -394,37 +425,6 @@ tm.define("tmapp.MainScene", {
                 if (e.damage(x, y)) this.numHit++;
             }
         }.bind(this));
-    },
-
-    //リザルト表示
-    dispResult: function(all) {
-        this.lowerLayer.remove();
-        this.mainLayer.remove();
-        this.infoLayer.remove();
-
-        var st = tm.display.Label("RESULT", 80)
-            .addChildTo(this)
-            .setParam(this.labelParamCenter)
-            .setPosition(SC_W*0.5, SC_H*0.1);
-
-        for (var i = 0; i < 5; i++) {
-            var r = tm.display.Label( (i+1)+": "+this.convertTimeFormat(this.stageResult[i+1]), 80)
-                .addChildTo(this)
-                .setParam(this.labelParamCenter)
-                .setPosition(SC_W*-0.5+SC_W*(i%2)*2, SC_H*0.25+SC_H*0.1*i);
-            r.tweener.clear()
-                .wait(50*i)
-                .move(SC_W*0.5, SC_H*0.25+SC_H*0.1*i, 200, "easeOutSine");
-        }
-        if (all) {
-            var r = tm.display.Label("ALL CLEAR TIME", 80)
-                .addChildTo(this)
-                .setParam(this.labelParamCenter)
-                .setPosition(SC_W*0.5, SC_H*1.5);
-            r.tweener.clear()
-                .wait(300)
-                .move(SC_W*0.5, SC_H*0.7, 200, "easeOutSine");
-        }
     },
 
     //小数点付き表記に変換
