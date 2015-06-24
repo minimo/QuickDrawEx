@@ -41,6 +41,8 @@ tm.define("tmapp.Target", {
 
         this.pattern = pattern;
         this.speed = 0;
+        this.boundingType = "circle";
+        this.radius = 24;
 
         switch (pattern) {
             case 0:
@@ -183,6 +185,8 @@ tm.define("tmapp.Bomb", {
 
     init: function() {
         this.superInit("bakudan", 128, 128);
+        this.boundingType = "circle";
+        this.radius = 64;
     },
     
     update: function() {
