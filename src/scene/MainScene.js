@@ -10,7 +10,7 @@ tm.define("tmapp.MainScene", {
     superClass: tm.app.Scene,
 
     //フラグ類
-    numStage: 5,
+    numStage: 1,
     maxStage: 5,
 
     //遷移情報
@@ -161,6 +161,10 @@ tm.define("tmapp.MainScene", {
         //ステージクリア条件チェック
         if (this.checkStageClear()) {
             if (!this.clearStage) {
+                //小数点３位以下を切り捨て
+                this.gameTime = (this.gameTime/10).floor()*10;
+                this.stageTime = (this.stageTime/10).floor()*10;
+
                 var that = this;
                 this.stopTimer = true;
                 this.clearTime[this.numStage] = this.gameTime;
