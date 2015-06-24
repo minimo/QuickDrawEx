@@ -182,6 +182,7 @@ tm.define("tmapp.Bomb", {
 
     //d—Í‰Á‘¬“x
     vy: 0,
+    bound: 0,
 
     init: function() {
         this.superInit("bakudan", 128, 128);
@@ -190,12 +191,17 @@ tm.define("tmapp.Bomb", {
     },
     
     update: function() {
+        if (!this.visible) return;
         if (this.floorY > 0) {
             this.vy += 0.98*4;
             this.y += this.vy;
             if (this.y > this.floorY) {
                 this.y = this.floorY;
                 this.vy = 0;
+                if (this.bound < 3) {
+                    this.bound++;
+                    this.vy = -32/this.bound;
+                }
             }
         }
 

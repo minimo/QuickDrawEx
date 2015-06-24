@@ -10,7 +10,7 @@ tm.define("tmapp.MainScene", {
     superClass: tm.app.Scene,
 
     //フラグ類
-    numStage: 0,
+    numStage: 5,
     maxStage: 5,
 
     //遷移情報
@@ -24,6 +24,9 @@ tm.define("tmapp.MainScene", {
 
     //残弾数
     leftBullet: 20,
+
+    //最終ステージエクストラターゲット
+    bomb: null,
 
     //ヒット数
     numHit: 0,
@@ -115,17 +118,6 @@ tm.define("tmapp.MainScene", {
                 appMain.pushScene(tmapp.PauseScene(this));
             }.bind(this));
 
-        //ラストステージイベント用
-        this.bomb = tmapp.Bomb()
-            .addChildTo(this.mainLayer)
-            .setPosition(SC_W/2, SC_H/2)
-            .setFloor(this.floor[2])
-            .setAlpha(0);
-        this.bomb.isCollision = false;
-
-        //ステージ情報
-        this.numStage = 1;
-
         //初期化
         this.startup();
 
@@ -157,9 +149,12 @@ tm.define("tmapp.MainScene", {
 
         //最終ステージエクストラターゲット
         if (this.numStage == 5) {
-            if (this.numHit == 4 && !this.bomb.isCollision) {
-                this.bomb.setAlpha(1);
-                this.bomb.isCollision = true;
+            if (this.numHit == 4 && !this.bomb) {
+                //ラストステージイベント用
+                this.bomb = tmapp.Bomb()
+                    .addChildTo(this.mainLayer)
+                    .setPosition(SC_W*0.5, -50)
+                    .setFloor(this.floor[2]);
             }
         }
 
