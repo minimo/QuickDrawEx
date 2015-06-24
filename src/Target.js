@@ -249,29 +249,4 @@ tm.define("tmapp.Bomb", {
     },
 });
 
-/*
-tm.define("tmapp.Bomb", {
-    superClass: "tmapp.Target",
-
-    init: function() {
-        this.superInit(2, 0);
-        this.gotoAndPlay("wait");
-    },
-    dead: function(x, y) {
-        var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Effect)
-            .addChildTo(this.parent)
-            .setPosition(x, y-128)
-            .setScale(10)
-            .gotoAndPlay("explode");
-        p.onanimationend = function() {
-            this.remove();
-        }
-
-        this.isCollision = false;
-        this.isDead = true;
-        this.remove();
-    },
-});
-*/
-
 })();
