@@ -141,8 +141,8 @@ tm.define("tmapp.MainScene", {
             this.gameTime += app.deltaTime;
             this.stageTime += app.deltaTime;
             if (this.gameTime < 0) this.gameTime = 0;
-            if (this.gameTime > 60000) {
-                this.gameTime = 60000;
+            if (this.gameTime > 30000) {
+                this.gameTime = 30000;
                 this.timeup = true;
             }
         }
