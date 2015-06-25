@@ -182,7 +182,7 @@ tm.define("tmapp.MainScene", {
                     .fadeOut(10);
 
                 //ステージクリアタイム表示
-                var t = tm.display.Label("TIME: "+this.convertTimeFormat(this.stageTime), 80)
+                var t = tm.display.Label("TIME: "+convertTimeFormat(this.stageTime), 80)
                     .addChildTo(this)
                     .setParam(this.labelParamCenter)
                     .setPosition(SC_W*0.5, SC_H*1.5);
@@ -193,10 +193,11 @@ tm.define("tmapp.MainScene", {
                     .fadeOut(10);
 
                 //オールクリア判定
+                var that = this;
                 if (this.numStage == this.maxStage) {
                     //リザルト表示
                     st.tweener.call(function() {
-                        that.dispResult(true);
+                        appMain.pushScene(tmapp.GameoverScene(true, that.gameTime, that.clearTime, that.stageResult));
                         st.remove();
                         t.remove();
                     });
@@ -238,8 +239,7 @@ tm.define("tmapp.MainScene", {
                             maxStage: that.maxStage,
                             clearTime: that.clearTime,
                         };
-//                        appMain.pushScene(tmapp.GameoverScene());
-                        that.dispResult();
+                        appMain.pushScene(tmapp.GameoverScene(true, that.gameTime, that.clearTime, that.stageResult));
                     });
             }
         }
@@ -372,44 +372,6 @@ tm.define("tmapp.MainScene", {
         return false;
     },
 
-    //リザルト表示
-    dispResult: function(all) {
-        this.lowerLayer.remove();
-        this.mainLayer.remove();
-        this.infoLayer.remove();
-
-        var st = tm.display.Label("RESULT", 80)
-            .addChildTo(this)
-            .setParam(this.labelParamCenter)
-            .setPosition(SC_W*0.5, SC_H*0.1);
-
-        for (var i = 0; i < 5; i++) {
-            var r = tm.display.Label( (i+1)+": "+this.convertTimeFormat(this.stageResult[i+1]), 80)
-                .addChildTo(this)
-                .setParam(this.labelParamCenter)
-                .setPosition(SC_W*-0.5+SC_W*(i%2)*2, SC_H*0.25+SC_H*0.1*i);
-            r.tweener.clear()
-                .wait(50*i)
-                .move(SC_W*0.5, SC_H*0.25+SC_H*0.1*i, 200, "easeOutElastic");
-        }
-        if (all) {
-            var r = tm.display.Label("TOTAL", 80)
-                .addChildTo(this)
-                .setParam(this.labelParamCenter)
-                .setPosition(SC_W*0.5, SC_H*1.5);
-            r.tweener.clear()
-                .wait(500)
-                .move(SC_W*0.5, SC_H*0.75, 200, "easeOutSine");
-            var r = tm.display.Label(this.convertTimeFormat(this.gameTime), 80)
-                .addChildTo(this)
-                .setParam(this.labelParamCenter)
-                .setPosition(SC_W*0.5, SC_H*1.5);
-            r.tweener.clear()
-                .wait(500)
-                .move(SC_W*0.5, SC_H*0.85, 200, "easeOutSine");
-        }
-    },
-
     //着弾エフェクト
     addImpact: function(x, y) {
         var p = tm.display.AnimationSprite(tmapp.SpriteSheet.Impact)
@@ -431,17 +393,6 @@ tm.define("tmapp.MainScene", {
                 if (e.damage(x, y)) this.numHit++;
             }
         }.bind(this));
-    },
-
-    //小数点付き表記に変換
-    convertTimeFormat: function(time) {
-        if (isNaN(time))return "--.--";
-        time = (time/10).floor();
-        var text = ""+(time/100);
-        if (time%100 === 0 ) text += ".0";
-        if (time%10 === 0 ) text += "0";
-        if (time < 1000) text = "0"+text;
-        return text;
     },
 
     ontouchstart: function(e) {

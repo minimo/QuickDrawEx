@@ -46,3 +46,14 @@ var AdvanceConfirm = function(str) {
 
     return result;
 };
+
+//小数点付き表記に変換
+convertTimeFormat = function(time) {
+    if (isNaN(time))return "--.--";
+    time = (time/10).floor();
+    var text = ""+(time/100);
+    if (time%100 === 0 ) text += ".0";
+    if (time%10 === 0 ) text += "0";
+    if (time < 1000) text = "0"+text;
+    return text;
+}
