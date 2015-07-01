@@ -118,6 +118,10 @@ tm.define("tmapp.MainScene", {
                 appMain.pushScene(tmapp.PauseScene(this));
             }.bind(this));
 
+        this.gameTime = 0;
+        this.clearTime = [];
+        this.stageResult = [];
+
         //初期化
         this.startup();
 
@@ -239,7 +243,7 @@ tm.define("tmapp.MainScene", {
                             maxStage: that.maxStage,
                             clearTime: that.clearTime,
                         };
-                        appMain.replaceScene(tmapp.GameoverScene(true, that.gameTime, that.clearTime, that.stageResult));
+                        appMain.replaceScene(tmapp.GameoverScene(false, that.gameTime, that.clearTime, that.stageResult));
                     });
             }
         }
@@ -252,9 +256,6 @@ tm.define("tmapp.MainScene", {
         this.clearStage = false;
         this.numHit = 0;
         this.stageTime = 0;
-        this.gameTime = 0;
-        this.clearTime = [];
-        this.stageResult = [];
  
         var st = tm.display.Label("STAGE "+this.numStage, 100)
             .addChildTo(this)
