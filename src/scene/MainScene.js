@@ -148,6 +148,7 @@ tm.define("tmapp.MainScene", {
             if (this.gameTime > 30000) {
                 this.gameTime = 30000;
                 this.timeup = true;
+                this.stoptimer = true;
             }
         }
 
@@ -400,7 +401,7 @@ tm.define("tmapp.MainScene", {
     },
 
     ontouchstart: function(e) {
-        if (this.startGame && !this.stopTimer) {
+        if (this.startGame && !this.stopTimer && !this.timeup) {
             if (this.leftBullet > 0) {
                 this.leftBullet--;
                 appMain.playSE("bang");
