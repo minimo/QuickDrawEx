@@ -59,7 +59,7 @@ tm.define("tmapp.GameoverScene", {
             .setAlpha(0)
             .setLock(true)
             .addEventListener("pushed", function() {
-                appMain.pushScene(tmapp.MainScene());
+                appMain.replaceScene(tmapp.MainScene());
             });
         this.b2 = tm.extension.Button(SC_W, 100, "TITLE")
             .addChildTo(this)
@@ -67,7 +67,7 @@ tm.define("tmapp.GameoverScene", {
             .setAlpha(0)
             .setLock(true)
             .addEventListener("pushed", function() {
-                appMain.pushScene(tmapp.TitleScene());
+                appMain.replaceScene(tmapp.TitleScene());
             });
         this.b3 = tm.extension.Button(SC_W, 100, "RANKING")
             .addChildTo(this)

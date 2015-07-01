@@ -197,7 +197,7 @@ tm.define("tmapp.MainScene", {
                 if (this.numStage == this.maxStage) {
                     //リザルト表示
                     st.tweener.call(function() {
-                        appMain.pushScene(tmapp.GameoverScene(true, that.gameTime, that.clearTime, that.stageResult));
+                        appMain.replaceScene(tmapp.GameoverScene(true, that.gameTime, that.clearTime, that.stageResult));
                         st.remove();
                         t.remove();
                     });
@@ -239,7 +239,7 @@ tm.define("tmapp.MainScene", {
                             maxStage: that.maxStage,
                             clearTime: that.clearTime,
                         };
-                        appMain.pushScene(tmapp.GameoverScene(true, that.gameTime, that.clearTime, that.stageResult));
+                        appMain.replaceScene(tmapp.GameoverScene(true, that.gameTime, that.clearTime, that.stageResult));
                     });
             }
         }
@@ -252,6 +252,9 @@ tm.define("tmapp.MainScene", {
         this.clearStage = false;
         this.numHit = 0;
         this.stageTime = 0;
+        this.gameTime = 0;
+        this.clearTime = [];
+        this.stageResult = [];
  
         var st = tm.display.Label("STAGE "+this.numStage, 100)
             .addChildTo(this)

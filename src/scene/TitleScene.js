@@ -92,6 +92,6 @@ tm.define("tmapp.TitleScene", {
     //タッチorクリック終了処理
     ontouchend: function(e) {
         tm.sound.WebAudio.unlock();
-        appMain.pushScene(tmapp.MainScene(GAMEMODE_NORMAL, 1));
+        appMain.replaceScene(tmapp.MainScene(GAMEMODE_NORMAL, 1));
     },
 });
